@@ -6,17 +6,17 @@ var Application = null;
 
 Ext.onReady(function() {
 
-	Application = Ext.create('Ext.app.Application', {
+   Application = Ext.create('Ext.app.Application', {
 
-		name: 'KR',
-		controllers: ['Entry'],
-		
-		launch: function() {
-			jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-			jasmine.getEnv().execute();
-		}
-		
-	});
+      name: 'KR',
+      controllers: ['Entry'],
+      
+      launch: function() {
+         jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+         jasmine.getEnv().execute();
+      }
+      
+   });
 
 });
 

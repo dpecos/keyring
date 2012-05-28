@@ -1,7 +1,25 @@
 {
     success: true,
     entries: [
-        {id: 1, name: 'Ed',    email: 'ed@sencha.com'},
-        {id: 2, name: 'Tommy', email: 'tommy@sencha.com'}
+        {   
+           id: 1, 
+           category: 'WebSites',
+           name: 'Google',
+           url: 'http://google.com', 
+           user: 'me',
+           password: 'p1',
+           email: 'me@google.com',
+           notes: null
+        },
+        {   
+           id: 2, 
+           category: 'WebSites',
+           name: 'Yahoo',
+           url: 'http://yahoo.com', 
+           user: 'me',
+           password: 'p2',
+           email: 'me@yahoo.com',
+           notes: null
+        }
     ]
 }

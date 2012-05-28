@@ -2,25 +2,25 @@ Ext.Loader.setConfig({enabled:true});
 
 Ext.application({
 
-	requires: ['Ext.container.Viewport'],
-	name: 'KR',
-	
-	appFolder: 'app',
+   requires: ['Ext.container.Viewport'],
+   name: 'KR',
+   
+   appFolder: 'app',
 
-	controllers: [
-		'Entry'
-	],
-	
-	launch: function () {
-		console.log('KeyRing application loading...');
+   controllers: [
+      'Entry'
+   ],
+   
+   launch: function () {
+      console.log('KeyRing application loading...');
 
-		Ext.create('Ext.container.Viewport', {
-			layout: 'fit',
-			items: {
-				xtype: 'entrylist'
-			}
-		});
+      Ext.create('Ext.container.Viewport', {
+         layout: 'fit',
+         items: {
+            xtype: 'entrylist'
+         }
+      });
 
-	}
+   }
 
 });
