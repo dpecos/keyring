@@ -3,30 +3,21 @@ describe('Entry UI tests', function() {
    it('table defined with correct header', function() {
       var list = Ext.widget('entrylist');
       var columns = list.columns;
-      
-      var actualColumns = [];
-      Ext.Array.each(columns, function(elem, index, arrayItSelf) {
-         actualColumns.push(elem.text);
-      }); 
-         
-      var expectedColumns = ['Category', 'Name', 'URL', 'User', 'Password', 'Email', 'Notes']; 
 
-      expect(actualColumns).toBeArray(expectedColumns);
-
+      expect(Ext.Array.pluck(columns, 'text')).toBeArray(['Category', 'Name', 'URL', 'User', 'Password', 'Email', 'Notes']);
    });
 
    it('table using correct data', function() {
       var list = Ext.widget('entrylist');
       var columns = list.columns;
 
-      var actualDataIndex = [];
-      Ext.Array.each(columns, function(elem, index, arrayItSelf) {
-         actualDataIndex.push(elem.dataIndex);
-      });
+      expect(Ext.Array.pluck(columns, 'dataIndex')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes']);
+   });
 
-      var expectedDataIndex = ['category', 'name', 'url', 'user', 'password', 'email', 'notes']; 
+   it('popup edit windows has fields', function() {
+      var edit = Ext.widget('entryedit');
 
-      expect(actualDataIndex).toBeArray(expectedDataIndex);
+      expect(Ext.Array.pluck(edit.items.items[0].items.items, 'name')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes']);
    });
 
 });
@@ -39,13 +30,7 @@ describe('Entry Datasource tests', function() {
       var store = list.getStore();
       var model = store.getProxy().getModel();
       
-      var actualFields = [];
-      Ext.Array.each(model.getFields(), function(elem, index, arrayItSelf) {
-         actualFields.push(elem.name);
-      });
-      var expectedFields = ['category', 'name', 'url', 'user', 'password', 'email', 'notes', 'id']; 
-
-      expect(actualFields).toBeArray(expectedFields);
+      expect(Ext.Array.pluck(model.getFields(), 'name')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes', 'id']);
    });
 
 });

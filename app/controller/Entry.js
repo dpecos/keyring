@@ -31,6 +31,8 @@ Ext.define('KR.controller.Entry', {
 
       var view = Ext.widget('entryedit');
       view.down('form').loadRecord(record);
+
+      view.show();
    },
 
    updateEntry: function(button) {

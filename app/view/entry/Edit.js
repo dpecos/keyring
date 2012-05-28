@@ -4,14 +4,20 @@ Ext.define('KR.view.entry.Edit', {
 
    title: 'Edit entry',
    layout: 'fit',
-   autoShow: true,
+   //autoShow: true,
 
    initComponent: function() {
       this.items = [
          {
             xtype: 'form',
             items: [
-               {xtype: 'textfield', name: 'name', fieldLabel: 'Name'}
+               {xtype: 'textfield', name: 'category', fieldLabel: 'Category'},
+               {xtype: 'textfield', name: 'name', fieldLabel: 'Name'},
+               {xtype: 'textfield', name: 'url', fieldLabel: 'URL'},
+               {xtype: 'textfield', name: 'user', fieldLabel: 'User'},
+               {xtype: 'textfield', name: 'password', fieldLabel: 'Password'},
+               {xtype: 'textfield', name: 'email', fieldLabel: 'Email'},
+               {xtype: 'textfield', name: 'notes', fieldLabel: 'Notes'}
             ]
          }
       ];
