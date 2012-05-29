@@ -1,8 +1,8 @@
-Ext.define('KR.controller.Entry', {
+Ext.define('KR.controller.EntryController', {
    extend: 'Ext.app.Controller',
 
    stores: [
-      'Entries'
+      'EntryStore'
    ],
    
    models: [

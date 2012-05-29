@@ -9,7 +9,7 @@ Ext.onReady(function() {
    Application = Ext.create('Ext.app.Application', {
 
       name: 'KR',
-      controllers: ['Entry'],
+      controllers: ['EntryController'],
       
       launch: function() {
          jasmine.getEnv().addReporter(new jasmine.TrivialReporter());

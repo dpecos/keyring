@@ -1,4 +1,4 @@
-Ext.define('KR.store.Entries', {
+Ext.define('KR.store.EntryStore', {
    extend: 'Ext.data.Store',
 
    model: 'KR.model.Entry',

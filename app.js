@@ -8,7 +8,7 @@ Ext.application({
    appFolder: 'app',
 
    controllers: [
-      'Entry'
+      'EntryController'
    ],
    
    launch: function () {
