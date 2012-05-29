@@ -56,7 +56,7 @@ Ext.define('KR.controller.EntryController', {
    setColumnsVisible: function(visible) {
       var list = this.getList();
 
-      var columns = Ext.Array.filter(list.columns, function(el) {return el.dataIndex === 'user' || el.dataIndex === 'password'});
+      var columns = Ext.Array.filter(list.columns, function(el) {return el.dataIndex === 'cleartext_user' || el.dataIndex === 'cleartext_password'});
       Ext.Array.each(columns, function(el) {el.setVisible(visible)});
    }
 });

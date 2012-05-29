@@ -1,5 +1,10 @@
 Ext.Loader.setConfig({enabled:true});
 
+Ext.define('KR.sharedData', {
+   singleton: true,
+   password: null
+});
+
 Ext.application({
 
    requires: ['Ext.container.Viewport'],
@@ -23,14 +28,15 @@ Ext.application({
          tbar: [
             {
                xtype: 'buttongroup',
-               title: 'Privacy',
+               title: 'Operations',
                items: [
-                  /*{
-                     text: 'Unlock'
-                  },*/
                   {
                      id: 'toggle_visibility_button',
                      text: 'Show'
+                  },
+                  {
+                     id: 'toggle_decrypt_button',
+                     text: 'Unlock'
                   }
                ]
             }
@@ -43,3 +49,4 @@ Ext.application({
    }
 
 });
+

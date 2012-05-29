@@ -10,8 +10,8 @@ Ext.define('KR.view.entry.List', {
          {header: 'Category', dataIndex: 'category', flex: 1},
          {header: 'Name', dataIndex: 'name', flex: 1},
          {header: 'URL', dataIndex: 'url', flex: 1},
-         {header: 'User', dataIndex: 'user', flex: 1, hidden: true},
-         {header: 'Password', dataIndex: 'password', flex: 1, hidden: true},
+         {header: 'User', dataIndex: 'cleartext_user', flex: 1, hidden: true},
+         {header: 'Password', dataIndex: 'cleartext_password', flex: 1, hidden: true},
          {header: 'Email', dataIndex: 'email', flex: 1},
          {header: 'Notes', dataIndex: 'notes', flex: 1}
       ];

@@ -18,7 +18,7 @@ describe('Entry List TESTs', function() {
       it('table using correct data', function() {
          var columns = listWidget.columns;
 
-         expect(Ext.Array.pluck(columns, 'dataIndex')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes']);
+         expect(Ext.Array.pluck(columns, 'dataIndex')).toBeArray(['category', 'name', 'url', 'cleartext_user', 'cleartext_password', 'email', 'notes']);
       });
 
       it('table columns initial visibility', function() {
@@ -27,7 +27,7 @@ describe('Entry List TESTs', function() {
             return elem.hidden;
          });
 
-         expect(Ext.Array.pluck(hiddenColumns, 'dataIndex')).toBeArray(['user', 'password']);
+         expect(Ext.Array.pluck(hiddenColumns, 'dataIndex')).toBeArray(['cleartext_user', 'cleartext_password']);
 
       });
 
