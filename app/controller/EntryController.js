@@ -14,6 +14,12 @@ Ext.define('KR.controller.EntryController', {
       'entry.Edit'
    ],
 
+   refs: [
+      {
+         ref: 'list',
+         selector: 'entrylist'
+      }
+   ],
 
    init: function() {
       this.control({
@@ -45,5 +51,12 @@ Ext.define('KR.controller.EntryController', {
       win.close();
       
       //this.getEntriesStore().sync();
+   },
+
+   setColumnsVisible: function(visible) {
+      var list = this.getList();
+
+      var columns = Ext.Array.filter(list.columns, function(el) {return el.dataIndex === 'user' || el.dataIndex === 'password'});
+      Ext.Array.each(columns, function(el) {el.setVisible(visible)});
    }
 });
