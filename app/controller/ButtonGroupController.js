@@ -1,6 +1,10 @@
 Ext.define('KR.controller.ButtonGroupController', {
    extend: 'Ext.app.Controller',
 
+   views: [
+      'Viewport'
+   ],
+   
    init: function() {
       this.control({
          'buttongroup > button': {

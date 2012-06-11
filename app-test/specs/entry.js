@@ -1,9 +1,11 @@
 describe('Entry List TESTs', function() {
 
+   var listController;
    var listWidget;
 
    beforeEach(function() {
-      listWidget = Ext.widget('entrylist');
+      listController = Application.getController('KR.controller.EntryController');
+      listWidget = listController.getEntriesList();
       expect(listWidget).toBeDefined();
    });
 
@@ -38,17 +40,13 @@ describe('Entry List TESTs', function() {
          var edit = Ext.widget('entryedit');
 
          expect(Ext.Array.pluck(edit.items.items[0].items.items, 'name')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes']);
+
+         edit.destroy();
       });
 
    });
 
    describe('Datasource configuration', function() {
-
-      var listWidget = null;
-
-      beforeEach(function() {
-         listWidget = Ext.widget('entrylist');
-      });
 
       it('table datasource model defined with correct fields', function() {
          var store = listWidget.getStore();
