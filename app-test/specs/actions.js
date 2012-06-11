@@ -11,31 +11,31 @@ describe('Actions triggered by buttons', function() {
 
    it('toggle table columns visibility', function() {
       var columns = listWidget.columns;
-      //var toolbar = Ext.widget('main').getDockedItems()[0];
+      var button = Ext.ComponentQuery.query('buttongroup > button') [0];
 
-      listController.setColumnsVisible(false);
+      button.fireEvent('click', button);
 
       var hiddenColumns = Ext.Array.filter(columns, function(elem) {
          return elem.hidden;
       });
 
+      expect(Ext.Array.pluck(hiddenColumns, 'dataIndex')).toBeArray([]);
+
+      button.fireEvent('click', button);
+
+      hiddenColumns = Ext.Array.filter(columns, function(elem) {
+         return elem.hidden;
+      });
+
       expect(Ext.Array.pluck(hiddenColumns, 'dataIndex')).toBeArray(['cleartext_user', 'cleartext_password']);
 
-      listController.setColumnsVisible(true);
+      button.fireEvent('click', button);
 
       hiddenColumns = Ext.Array.filter(columns, function(elem) {
          return elem.hidden;
       });
 
       expect(Ext.Array.pluck(hiddenColumns, 'dataIndex')).toBeArray([]);
-
-      listController.setColumnsVisible(false);
-
-      hiddenColumns = Ext.Array.filter(columns, function(elem) {
-         return elem.hidden;
-      });
-
-      expect(Ext.Array.pluck(hiddenColumns, 'dataIndex')).toBeArray(['cleartext_user', 'cleartext_password']);
    });
 
 });
