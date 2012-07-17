@@ -4,11 +4,11 @@ Ext.define('KR.controller.EntryController', {
    stores: [
       'EntryStore'
    ],
-   
+
    models: [
       'Entry'
    ],
-   
+
    views: [
       'entry.List',
       'entry.Edit'
@@ -48,13 +48,13 @@ Ext.define('KR.controller.EntryController', {
 
    updateEntry: function(button) {
       var win = button.up('window'),
-          form = win.down('form'),
-          record = form.getRecord(),
-          values = form.getValues();
+      form = win.down('form'),
+      record = form.getRecord(),
+      values = form.getValues();
 
       record.set(values);  
       win.close();
-      
+
       //this.getEntriesStore().sync();
    },
 

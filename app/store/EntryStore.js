@@ -26,6 +26,7 @@ Ext.define('KR.store.EntryStore', {
       load: function(store, records, successful, eOpts) {
          if (successful) {
             var filter = null;
+
             if (KR.sharedData.password != null) {
                var aes = Ext.create('Ext.lib.crypto.AES', {password: KR.sharedData.password});
                filter = new Ext.util.Filter({
@@ -50,4 +51,4 @@ Ext.define('KR.store.EntryStore', {
       }
    }
 });
-   
+

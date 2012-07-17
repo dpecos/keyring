@@ -4,7 +4,7 @@ Ext.define('KR.controller.ButtonGroupController', {
    views: [
       'Viewport'
    ],
-   
+
    init: function() {
       this.control({
          'buttongroup > button': {
@@ -20,11 +20,11 @@ Ext.define('KR.controller.ButtonGroupController', {
          var listController = this.getController('KR.controller.EntryController');
          listController.setColumnsVisible(button.text !== 'Show');
       } else if (button.id == 'toggle_decrypt_button') {
-         
+
          var store = Ext.data.StoreManager.get('EntryStore');
 
          if (KR.sharedData.password == null) {
-            
+
             var msgbox = Ext.MessageBox.prompt(
                'Password', 
                'Enter decryption password:', 
@@ -38,12 +38,12 @@ Ext.define('KR.controller.ButtonGroupController', {
                }
             );
             msgbox.textField.inputEl.dom.type = 'password';
-            
+
 
          } else {
-            KR.sharedData.password = null;
-
             button.setText('Unlock');
+
+            KR.sharedData.password = null;
             store.load();
          }
       }

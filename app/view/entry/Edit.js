@@ -25,7 +25,7 @@ Ext.define('KR.view.entry.Edit', {
          {text: 'Save', action: 'save'},
          {text: 'Cancel', scope: this, handler: this.close},
       ];
-   
+
       this.callParent(arguments);
    }
 });

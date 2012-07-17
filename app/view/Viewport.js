@@ -1,7 +1,7 @@
 Ext.define('KR.view.Viewport', {
    extend: 'Ext.panel.Panel',
    alias: 'widget.main', 
-   
+
    //title: 'KeyRing 2',
 
    layout: 'fit',
@@ -13,19 +13,19 @@ Ext.define('KR.view.Viewport', {
          xtype: 'buttongroup',
          title: 'Operations',
          items: [
-           {
-             id: 'toggle_visibility_button',
-             text: 'Show'
-           },
-           {
-             id: 'toggle_decrypt_button',
-             text: 'Unlock'
-           }
+            {
+               id: 'toggle_visibility_button',
+               text: 'Show'
+            },
+            {
+               id: 'toggle_decrypt_button',
+               text: 'Unlock'
+            }
          ]
       }
    ], 
    items: {
       xtype: 'entrylist'
    }
-  
+
 });
