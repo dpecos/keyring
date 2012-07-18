@@ -1,6 +1,6 @@
 {
     success: true,
-    entries: [
+    Results: [
         {   
            id: 1, 
            category: 'WebSites',

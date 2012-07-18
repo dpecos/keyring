@@ -12,7 +12,7 @@ Ext.define('KR.store.EntryStore', {
    proxy: {
       type: 'ajax',
       api: {
-         read: 'data/results.json',
+         read: 'data/demo.json',
          update: 'data/update.json'
       },
       reader: {
