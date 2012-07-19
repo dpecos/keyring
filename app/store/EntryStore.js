@@ -9,6 +9,8 @@ Ext.define('KR.store.EntryStore', {
    autoLoad: true,
    autoSync: true,
 
+   groupField: 'category',
+
    proxy: {
       type: 'ajax',
       api: {

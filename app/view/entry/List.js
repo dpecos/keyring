@@ -7,6 +7,8 @@ Ext.define('KR.view.entry.List', {
 
    columnLines: true, 
 
+   features: [ {ftype: 'grouping'} ],
+
    /*selType: 'rowmodel',
 
    plugins: [
@@ -49,7 +51,7 @@ Ext.define('KR.view.entry.List', {
    * @private
    * Case sensitive mode.
    */
-caseSensitive: false,
+   caseSensitive: false,
 
    /**
    * @private
@@ -78,7 +80,7 @@ caseSensitive: false,
       ];
 
       var me = this;
-      me.tbar = ['Search',{
+      me.tbar = ['Search', {
          xtype: 'textfield',
          name: 'searchField',
          hideLabel: true,
@@ -96,7 +98,7 @@ caseSensitive: false,
          tooltip: 'Find Previous Row',
          handler: me.onPreviousClick,
          scope: me
-      },{
+      }, {
          xtype: 'button',
          text: '&gt;',
          tooltip: 'Find Next Row',
@@ -280,18 +282,18 @@ caseSensitive: false,
    * Switch to case sensitive mode.
    * @private
    */    
-caseSensitiveToggle: function(checkbox, checked) {
-   this.caseSensitive = checked;
-   this.onTextFieldChange();
-},
+   caseSensitiveToggle: function(checkbox, checked) {
+      this.caseSensitive = checked;
+      this.onTextFieldChange();
+   },
 
-/**
-* Switch to regular expression mode
-* @private
-*/
-regExpToggle: function(checkbox, checked) {
-   this.regExpMode = checked;
-   this.onTextFieldChange();
-}
+   /**
+   * Switch to regular expression mode
+   * @private
+   */
+   regExpToggle: function(checkbox, checked) {
+      this.regExpMode = checked;
+      this.onTextFieldChange();
+   }
 
 });
