@@ -27,5 +27,9 @@ Ext.define('KR.view.entry.Edit', {
       ];
 
       this.callParent(arguments);
+   },
+
+   getForm: function() {
+      return this.child('form');
    }
 });

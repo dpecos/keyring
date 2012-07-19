@@ -38,22 +38,20 @@ Ext.define('KR.controller.EntryController', {
    },
 
    editEntry: function(grid, record) {
-      console.log('Double click on ' + record.get('name'));
+      var newDialog = Ext.widget('entryedit');
+      newDialog.getForm().loadRecord(record);
 
-      var view = Ext.widget('entryedit');
-      view.down('form').loadRecord(record);
-
-      view.show();
+      newDialog.show();
    },
 
    updateEntry: function(button) {
-      var win = button.up('window'),
-      form = win.down('form'),
-      record = form.getRecord(),
-      values = form.getValues();
+      var dialog = this.getEntryEditDialog();
+      var form = dialog.getForm();
+      var record = form.getRecord();
+      var values = form.getValues();
 
       record.set(values);  
-      win.close();
+      dialog.close();
 
       //this.getEntriesStore().sync();
    },
