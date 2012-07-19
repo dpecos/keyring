@@ -1,5 +1,5 @@
 Ext.define('KR.controller.EntryController', {
-   extend: 'Ext.app.Controller',
+   extend: 'KR.controller.SearchableListController',
 
    stores: [
       'EntryStore'
@@ -35,6 +35,8 @@ Ext.define('KR.controller.EntryController', {
             click: this.updateEntry
          }
       });
+
+      this.callParent(arguments);
    },
 
    editEntry: function(grid, record) {
