@@ -1,5 +1,5 @@
 Ext.define('KR.view.entry.List', {
-   extend: 'KR.view.entry.SearchableList', 
+   extend: 'DPM.view.SearchableList', 
    alias: 'widget.entrylist',
 
    title: 'Passwords',

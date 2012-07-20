@@ -1,5 +1,5 @@
 Ext.define('KR.store.EntryStore', {
-   requires: ['Ext.lib.crypto.AES'],
+   requires: ['DPM.util.crypto.AES'],
 
    extend: 'Ext.data.Store',
 
@@ -30,7 +30,7 @@ Ext.define('KR.store.EntryStore', {
             var filter = null;
 
             if (KR.sharedData.password != null) {
-               var aes = Ext.create('Ext.lib.crypto.AES', {password: KR.sharedData.password});
+               var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
                filter = new Ext.util.Filter({
                   filterFn: function(el) {
                      el.data.cleartext_user = aes.decrypt(el.data.user);

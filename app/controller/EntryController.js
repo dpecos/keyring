@@ -1,5 +1,5 @@
 Ext.define('KR.controller.EntryController', {
-   extend: 'KR.controller.SearchableListController',
+   extend: 'DPM.controller.SearchableListController',
 
    stores: [
       'EntryStore'

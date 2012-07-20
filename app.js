@@ -1,4 +1,9 @@
-Ext.Loader.setConfig({enabled:true});
+Ext.Loader.setConfig({
+   enabled: true, 
+   paths: {
+      'DPM': 'lib/DPM'
+   }
+});
 Ext.Loader.syncRequire('sharedData');
 
 Ext.application({
