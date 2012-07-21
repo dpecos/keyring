@@ -52,7 +52,7 @@ Ext.onReady(function() {
          });
 
          listController = Application.getController('KR.controller.EntryController');
-         listWidget = listController.getEntriesList();
+         listWidget = listController.getPanelView();
          listWidget.getStore().setProxy(proxy);
 
          jasmine.getEnv().addReporter(new jasmine.TrivialReporter());

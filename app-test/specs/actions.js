@@ -5,7 +5,7 @@ describe('Actions triggered by buttons', function() {
 
    beforeEach(function() {
       listController = Application.getController('KR.controller.EntryController');
-      listWidget = listController.getEntriesList();
+      listWidget = listController.getPanelView();
       expect(listWidget).toBeDefined();
 
   });
