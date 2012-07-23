@@ -9,14 +9,6 @@ Ext.define('KR.view.entry.List', {
 
    features: [ {ftype: 'grouping'} ],
 
-   /*selType: 'rowmodel',
-
-   plugins: [
-   Ext.create('Ext.grid.plugin.RowEditing', {
-   clicksToEdit: 1
-   })
-   ],*/
-
    initComponent: function() {
       this.columns = [
          {header: 'Category', dataIndex: 'category', flex: 1},

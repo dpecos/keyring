@@ -70,4 +70,50 @@ describe('Actions triggered by buttons', function() {
       expect(store.getAt(0).get('cleartext_password')).toBe('***'); 
    });
 
+   it('add new entry ciphers user and password columns', function() {
+      var store = listWidget.getStore();
+
+      var entry = Ext.create('KR.model.Entry', {
+         name: 'TEST',
+         url: 'http://danielpecos.com',
+         user: 'clear user',
+         password: 'clear password',
+         email: 'contact@danielpecos.com'
+      });
+      entry.validate();
+
+      KR.sharedData.password = 'dummypassword';
+      var storeSize = store.count();
+
+      var user = entry.get('user');
+      var password = entry.get('password');
+
+      var result = store.add(entry);
+      expect(result).not.toBe(null);
+      expect(result.length).toBeGreaterThan(0);
+
+      expect(store.count()).toBe(storeSize + 1);
+
+      var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
+      var addedEntry = result[0];
+      expect(aes.decrypt(addedEntry.get('user'))).toBe(user);
+      expect(aes.decrypt(addedEntry.get('password'))).toBe(password);
+   });
+
+   it('add new entry with null password should fail', function() {
+      var store = listWidget.getStore();
+
+      var entry = Ext.create('KR.model.Entry', {
+         name: 'TEST',
+         url: 'http://danielpecos.com',
+         user: 'clear user',
+         password: 'clear password',
+         email: 'contact@danielpecos.com'
+      });
+      entry.validate();
+
+      KR.sharedData.password = null;
+
+      expect(function() {store.add(entry)}).toThrow("Password can not be null");
+   });
 });

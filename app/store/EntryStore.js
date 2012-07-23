@@ -14,15 +14,19 @@ Ext.define('KR.store.EntryStore', {
    proxy: {
       type: 'ajax',
       api: {
+         create: 'data/demo.json',
          read: 'data/demo.json',
-         update: 'data/update.json'
+         update: 'data/update.json',
+         destroy: 'data/update.json'
       },
       reader: {
          type: 'json',
          root: 'Results',
          successProperty: 'success'
-      }
+      },
+      writer: 'json'
    },
+
 
    listeners: {
       load: function(store, records, successful, eOpts) {
@@ -47,10 +51,34 @@ Ext.define('KR.store.EntryStore', {
                   }
                });
             }
+            store.clearFilter();
+            store.filter(filter);
          }
-         store.clearFilter();
-         store.filter(filter);
       }
+   },
+
+   add: function(records) {
+      if (KR.sharedData.password != null) {
+         var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
+
+         var cipherRecord = function (record) {
+            record.set({
+               user: aes.encrypt(record.get('user')),
+               password: aes.encrypt(record.get('password'))
+            });
+            return record;
+         };
+
+         if (Ext.isArray(records)) {
+            records = Ext.map(records, cipherRecord)
+         } else {
+            records = cipherRecord(records);
+         }
+
+      } else {
+         throw "Password can not be null";
+      }
+
+      return this.callParent([records]);
    }
 });
-

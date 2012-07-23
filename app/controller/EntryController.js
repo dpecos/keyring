@@ -18,6 +18,10 @@ Ext.define('KR.controller.EntryController', {
       {
          ref: 'panelView',
          selector: 'entrylist'
+      }, 
+      {
+         ref: 'entryDialog',
+         selector: 'entryedit'
       }
    ],
 
@@ -35,22 +39,43 @@ Ext.define('KR.controller.EntryController', {
    },
 
    editEntry: function(grid, record) {
-      var newDialog = Ext.widget('entryedit');
-      newDialog.getForm().loadRecord(record);
+      if (KR.sharedData.password != null) {
 
-      newDialog.show();
+         var newDialog = Ext.widget('entryedit');
+         if (record != null) {
+            var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
+            record.set('user', record.get('cleartext_user'));
+            record.set('password', record.get('cleartext_password'));
+            newDialog.getForm().loadRecord(record);
+         }
+
+         newDialog.show();
+      } else {
+         Ext.MessageBox.show({
+            title: 'Error',
+            msg: 'You must enter a session password first',
+            buttons: Ext.MessageBox.OK,
+            icon: Ext.MessageBox.ERROR
+         });
+      }
+
    },
 
    updateEntry: function(button) {
-      var dialog = this.getEntryEditDialog();
+      var dialog = this.getEntryDialog();
       var form = dialog.getForm();
       var record = form.getRecord();
       var values = form.getValues();
 
-      record.set(values);  
-      dialog.close();
+      var store = this.getEntryStoreStore();
+      if (record == null) {
+         record = Ext.create(this.getEntryModel(), values);
+         record = store.add(record);
+      } else {
+         record.set(values);
+      }
 
-      //this.getEntriesStore().sync();
+      dialog.close();
    },
 
    setColumnsVisible: function(visible) {

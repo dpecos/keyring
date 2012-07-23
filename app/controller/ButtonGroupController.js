@@ -1,51 +1,61 @@
 Ext.define('KR.controller.ButtonGroupController', {
    extend: 'Ext.app.Controller',
 
-   views: [
-      'Viewport'
-   ],
+   stores: ['EntryStore'],
 
    init: function() {
       this.control({
-         'buttongroup > button': {
-            click: this.buttonClick
+         'buttongroup > button[id=toggle_visibility_button]': {
+            click: this.toggleVisibility
+         },
+         'buttongroup > button[id=toggle_decrypt_button]': {
+            click: this.toggleEncryption
+         },
+         'buttongroup > button[id=add_new_entry]': {
+            click: this.addNewEntry
          }
       });
    },
 
-   buttonClick: function(button) {
-      if (button.id == 'toggle_visibility_button') {
-         button.setText(button.text === 'Show' ? 'Hide' : 'Show');
 
-         var listController = this.getController('KR.controller.EntryController');
-         listController.setColumnsVisible(button.text !== 'Show');
-      } else if (button.id == 'toggle_decrypt_button') {
+   toggleVisibility: function(button) {
+      button.setText(button.text === 'Show' ? 'Hide' : 'Show');
 
-         var store = Ext.data.StoreManager.get('EntryStore');
+      var listController = this.getController('KR.controller.EntryController');
+      listController.setColumnsVisible(button.text !== 'Show');
+   },
 
-         if (KR.sharedData.password == null) {
+   toggleEncryption: function(button) {
+      //var store = Ext.data.StoreManager.get('EntryStore');
+      var store = this.getEntryStoreStore();
 
-            var msgbox = Ext.MessageBox.prompt(
-               'Password', 
-               'Enter decryption password:', 
-               function(btn, text) {
-                  if (btn == 'ok') {
-                     KR.sharedData.password = text;
+      if (KR.sharedData.password == null) {
 
-                     button.setText('Lock');
-                     store.load();
-                  }
+         var msgbox = Ext.MessageBox.prompt(
+            'Password', 
+            'Enter decryption password:', 
+            function(btn, text) {
+               if (btn == 'ok') {
+                  KR.sharedData.password = text;
+
+                  button.setText('Lock');
+                  store.load();
                }
-            );
-            msgbox.textField.inputEl.dom.type = 'password';
+            }
+         );
+         msgbox.textField.inputEl.dom.type = 'password';
 
 
-         } else {
-            button.setText('Unlock');
+      } else {
+         button.setText('Unlock');
 
-            KR.sharedData.password = null;
-            store.load();
-         }
+         KR.sharedData.password = null;
+         store.load();
       }
+   },
+
+   addNewEntry: function(button) {
+      var listController = this.getController('KR.controller.EntryController');
+      listController.editEntry(listController.getEntryListView(), null); 
    }
 });

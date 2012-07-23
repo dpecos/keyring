@@ -6,8 +6,8 @@
            category: 'WebSites',
            name: 'Google',
            url: 'http://google.com', 
-           user: 'me',
-           password: 'p1',
+           user: 'mL8NULe3t7d5',
+           password: '8r4NUHx8fHxX',
            email: 'me@google.com',
            notes: null
         },
@@ -16,8 +16,8 @@
            category: 'Dummy WebSites',
            name: 'Yahoo',
            url: 'http://yahoo.com', 
-           user: 'me',
-           password: 'p2',
+           user: 'mL8NULe3t7d5',
+           password: '8r4NUHx8fHxX',
            email: 'me@yahoo.com',
            notes: null
         },
@@ -26,8 +26,8 @@
            category: 'WebSites',
            name: 'Google',
            url: 'http://google.com', 
-           user: 'me',
-           password: 'p1',
+           user: 'mL8NULe3t7d5',
+           password: '8r4NUHx8fHxX',
            email: 'me@google.com',
            notes: null
         },
@@ -36,8 +36,8 @@
            category: 'Dummy WebSites',
            name: 'Yahoo',
            url: 'http://yahoo.com', 
-           user: 'me',
-           password: 'p2',
+           user: 'mL8NULe3t7d5',
+           password: '8r4NUHx8fHxX',
            email: 'me@yahoo.com',
            notes: null
         }
