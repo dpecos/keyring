@@ -14,7 +14,8 @@ Ext.application({
 
    controllers: [
       'ButtonGroupController',
-      'EntryController'
+      'EntryController',
+      'CategoryController'
    ],
    
    autoCreateViewport: true,

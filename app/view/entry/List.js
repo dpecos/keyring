@@ -21,6 +21,6 @@ Ext.define('KR.view.entry.List', {
       ];
 
       this.callParent(arguments);
-   },
+   }
 
 });

@@ -4,7 +4,6 @@ Ext.define('KR.view.entry.Edit', {
 
    title: 'Edit entry',
    layout: 'fit',
-   closeAction: 'destroy',
 
    initComponent: function() {
       this.items = [

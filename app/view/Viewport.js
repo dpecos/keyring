@@ -36,8 +36,8 @@ Ext.define('KR.view.Viewport', {
          title: 'Categories',
          items: [
             {
-               id: 'add_new_category',
-               text: 'New Category'
+               id: 'manage_categories',
+               text: 'Manage'
             }
          ]
       }

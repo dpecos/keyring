@@ -1,6 +1,8 @@
 Ext.define('KR.controller.ButtonGroupController', {
    extend: 'Ext.app.Controller',
 
+   requires: ['KR.view.category.List'],
+
    stores: ['EntryStore'],
 
    init: function() {
@@ -13,6 +15,9 @@ Ext.define('KR.controller.ButtonGroupController', {
          },
          'buttongroup > button[id=add_new_entry]': {
             click: this.addNewEntry
+         },
+         'buttongroup > button[id=manage_categories]': {
+            click: this.manageCategories
          }
       });
    },
@@ -57,5 +62,14 @@ Ext.define('KR.controller.ButtonGroupController', {
    addNewEntry: function(button) {
       var listController = this.getController('KR.controller.EntryController');
       listController.editEntry(listController.getEntryListView(), null); 
+   },
+
+   manageCategories: function(button) {
+      var popup = Ext.create('Ext.window.Window', {
+         title: 'Categories',
+         width: 400,
+         items: [ {xtype: 'categorylist'} ],
+      });
+      popup.show();
    }
 });
