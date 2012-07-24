@@ -3,8 +3,6 @@ Ext.define('KR.store.EntryStore', {
 
    extend: 'Ext.data.Store',
 
-   storeId: 'entries',
-
    model: 'KR.model.Entry',
    autoLoad: true,
    autoSync: true,

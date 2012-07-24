@@ -9,35 +9,45 @@ Ext.define('KR.view.Viewport', {
    tbar: [
       {
          xtype: 'buttongroup',
-         title: 'Operations',
+         title: 'Encryption',
+         width: 220,
+         layout: { type: 'hbox', pack: 'center' }, 
          items: [
             {
                id: 'toggle_visibility_button',
-               text: 'Show'
+               text: 'Show credentials',
+               iconCls: 'show'
             },
             {
                id: 'toggle_decrypt_button',
-               text: 'Unlock'
+               text: 'Unlock data',
+               iconCls: 'unlock'
             }
          ]
       },
       {
          xtype: 'buttongroup',
          title: 'Operations',
+         width: 100,
+         layout: { type: 'hbox', pack: 'center' }, 
          items: [
             {
                id: 'add_new_entry',
-               text: 'New Entry'
+               text: 'New Entry',
+               iconCls: 'add'
             }
          ]
       },
       {
          xtype: 'buttongroup',
          title: 'Categories',
+         width: 100,
+         layout: { type: 'hbox', pack: 'center' }, 
          items: [
             {
                id: 'manage_categories',
-               text: 'Manage'
+               text: 'Manage',
+               iconCls: 'grid'
             }
          ]
       }

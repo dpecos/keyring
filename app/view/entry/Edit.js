@@ -6,11 +6,12 @@ Ext.define('KR.view.entry.Edit', {
    layout: 'fit',
 
    initComponent: function() {
+      var categoriesStore = Ext.data.StoreManager.lookup('Categories');
       this.items = [
          {
             xtype: 'form',
             items: [
-               {xtype: 'textfield', name: 'category', fieldLabel: 'Category'},
+               {xtype: 'combo', name: 'category', fieldLabel: 'Category', store: categoriesStore, displayField: 'name', valueField: 'name', queryMode: 'local'},
                {xtype: 'textfield', name: 'name', fieldLabel: 'Name'},
                {xtype: 'textfield', name: 'url', fieldLabel: 'URL'},
                {xtype: 'textfield', name: 'user', fieldLabel: 'User'},

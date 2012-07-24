@@ -42,10 +42,14 @@ Ext.define('KR.controller.CategoryController', {
    addNewCategory: function() {
       var store = this.getCategoriesStore();
       var model = this.getCategoryModel();
-      Ext.MessageBox.prompt('Name', 'Please enter the category name:', function(button, text) {
-         var record = Ext.create(model, {name: text});
-         store.add(record);
+      var msgbox = Ext.MessageBox.prompt('Name', 'Please enter the category name:', function(button, text) {
+         if (button == 'ok') {
+            var record = Ext.create(model, {name: text});
+            store.add(record);
+         }
+         this.close();
       });
+      msgbox.textField.inputEl.dom.type = 'input';
    },
 
    removeCategories: function() {

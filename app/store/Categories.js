@@ -1,8 +1,6 @@
 Ext.define('KR.store.Categories', {
    extend: 'Ext.data.Store',
 
-   storeId: 'categories',
-
    model: 'KR.model.Category',
 
    data: [

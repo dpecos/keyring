@@ -24,14 +24,13 @@ Ext.define('KR.controller.ButtonGroupController', {
 
 
    toggleVisibility: function(button) {
-      button.setText(button.text === 'Show' ? 'Hide' : 'Show');
+      button.setText(button.text === 'Show credentials' ? 'Hide credentials' : 'Show credentials');
 
       var listController = this.getController('KR.controller.EntryController');
-      listController.setColumnsVisible(button.text !== 'Show');
+      listController.setColumnsVisible(button.text !== 'Show credentials');
    },
 
    toggleEncryption: function(button) {
-      //var store = Ext.data.StoreManager.get('EntryStore');
       var store = this.getEntryStoreStore();
 
       if (KR.sharedData.password == null) {
@@ -43,16 +42,17 @@ Ext.define('KR.controller.ButtonGroupController', {
                if (btn == 'ok') {
                   KR.sharedData.password = text;
 
-                  button.setText('Lock');
+                  button.setText('Lock data');
                   store.load();
                }
+               this.close();
             }
          );
          msgbox.textField.inputEl.dom.type = 'password';
 
 
       } else {
-         button.setText('Unlock');
+         button.setText('Unlock data');
 
          KR.sharedData.password = null;
          store.load();
