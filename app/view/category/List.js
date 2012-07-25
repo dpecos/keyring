@@ -5,7 +5,11 @@ Ext.define('KR.view.category.List', {
    store: 'Categories',
 
    columnLines: true, 
-   selModel: Ext.create('Ext.selection.CheckboxModel'),
+   selModel: {
+      selType: 'checkboxmodel',
+      mode: 'MULTI', 
+      checkOnly: true
+   },
 
    columns : [
       {
@@ -18,8 +22,8 @@ Ext.define('KR.view.category.List', {
    ],
 
    plugins: [
-      Ext.create('Ext.grid.plugin.RowEditing', {
-         clicksToMoveEditor: 1,
+      Ext.create('Ext.grid.plugin.CellEditing', {
+         clicksToEdit: 2
       })
    ],    
 

@@ -45,6 +45,7 @@ Ext.define('KR.controller.CategoryController', {
       var msgbox = Ext.MessageBox.prompt('Name', 'Please enter the category name:', function(button, text) {
          if (button == 'ok') {
             var record = Ext.create(model, {name: text});
+            record.setDirty(true);
             store.add(record);
          }
          this.close();
@@ -63,8 +64,12 @@ Ext.define('KR.controller.CategoryController', {
 
    save: function() {
       var store = this.getCategoriesStore();
-      store.save();
-      this.closePopup();
+      var me = this;
+      store.sync({
+         callback: function() {
+            me.closePopup();
+         }
+      });
    },
 
    closePopup: function() {

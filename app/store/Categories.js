@@ -3,13 +3,24 @@ Ext.define('KR.store.Categories', {
 
    model: 'KR.model.Category',
 
-   data: [
-      { name: 'Category 1' },
-      { name: 'Category 2' },
-      { name: 'Category 3' },
-      { name: 'Category 4' }
-   ] ,
+   autoLoad: true,
+   appendId: false,
+   batch: true,
 
-   proxy: { type: 'memory'}
+
+   proxy: {
+      type: 'rest',
+      url: 'http://localhost:3000/category',
+      reader: {
+         type: 'json',
+         root: 'data',
+         successProperty: 'success'
+      },
+      writer: {
+         type: 'json',
+         successProperty: 'success'
+      }
+   }
+
 
 });
