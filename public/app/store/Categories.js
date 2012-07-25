@@ -10,7 +10,7 @@ Ext.define('KR.store.Categories', {
 
    proxy: {
       type: 'rest',
-      url: 'http://localhost:3000/category',
+      url: '/data/category',
       reader: {
          type: 'json',
          root: 'data',
