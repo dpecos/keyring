@@ -1,54 +1,44 @@
 Ext.define('KR.store.EntryStore', {
+   extend: 'Ext.data.Store',
    requires: ['DPM.util.crypto.AES'],
 
-   extend: 'Ext.data.Store',
-
    model: 'KR.model.Entry',
+
    autoLoad: true,
-   autoSync: true,
+   appendId: false,
 
    groupField: 'category',
 
    proxy: {
-      type: 'ajax',
-      api: {
-         create: 'data/demo.json',
-         read: 'data/demo.json',
-         update: 'data/update.json',
-         destroy: 'data/update.json'
-      },
+      type: 'rest',
+      url: '/data/entry',
       reader: {
          type: 'json',
-         root: 'Results',
+         root: 'data',
          successProperty: 'success'
       },
-      writer: 'json'
+      writer: {
+         type: 'json',
+         successProperty: 'success'
+      }
    },
-
 
    listeners: {
       load: function(store, records, successful, eOpts) {
          if (successful) {
-            var filter = null;
-
-            if (KR.sharedData.password != null) {
-               var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
-               filter = new Ext.util.Filter({
-                  filterFn: function(el) {
+            var filter =  new Ext.util.Filter({
+               filterFn: function(el) {
+                  if (KR.sharedData.password != null) {
+                     var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
                      el.data.cleartext_user = aes.decrypt(el.data.user);
                      el.data.cleartext_password = aes.decrypt(el.data.password);
-                     return true;
-                  }
-               });
-            } else {
-               filter = new Ext.util.Filter({
-                  filterFn: function(el) {
+                  } else {
                      el.data.cleartext_user = "***";
                      el.data.cleartext_password = "***";
-                     return true;
                   }
-               });
-            }
+                  return true;
+               }
+            });
             store.clearFilter();
             store.filter(filter);
          }

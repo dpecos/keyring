@@ -5,8 +5,6 @@ Ext.define('KR.store.Categories', {
 
    autoLoad: true,
    appendId: false,
-   batch: true,
-
 
    proxy: {
       type: 'rest',
@@ -21,6 +19,5 @@ Ext.define('KR.store.Categories', {
          successProperty: 'success'
       }
    }
-
 
 });

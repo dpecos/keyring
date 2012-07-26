@@ -43,7 +43,6 @@ Ext.define('KR.controller.EntryController', {
 
          var newDialog = Ext.widget('entryedit');
          if (record != null) {
-            var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
             record.set('user', record.get('cleartext_user'));
             record.set('password', record.get('cleartext_password'));
             newDialog.getForm().loadRecord(record);
@@ -66,6 +65,12 @@ Ext.define('KR.controller.EntryController', {
       var form = dialog.getForm();
       var record = form.getRecord();
       var values = form.getValues();
+   
+      var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
+      values.cleartext_user = values.user;
+      values.cleartext_password = values.password;
+      values.user = aes.encrypt(values.user);
+      values.password = aes.encrypt(values.password);
 
       var store = this.getEntryStoreStore();
       if (record == null) {
@@ -74,8 +79,12 @@ Ext.define('KR.controller.EntryController', {
       } else {
          record.set(values);
       }
-
-      dialog.close();
+      
+      store.sync({
+         callback: function() {
+            dialog.close();
+         }
+      });
    },
 
    setColumnsVisible: function(visible) {
@@ -84,4 +93,5 @@ Ext.define('KR.controller.EntryController', {
       var columns = Ext.Array.filter(list.columns, function(el) {return el.dataIndex === 'cleartext_user' || el.dataIndex === 'cleartext_password'});
       Ext.Array.each(columns, function(el) {el.setVisible(visible)});
    }
+   
 });
