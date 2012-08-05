@@ -7,7 +7,7 @@ module.exports = function(app) {
 
    app.get('/data/entry', function(req, res) {
       db.collection('entries', function(err, collection) {
-         collection.find({}).toArray(function(err, items) {
+         collection.find({}).sort({category:1, name: 1}).toArray(function(err, items) {
             res.send({data: items, success: true});
          });
       });

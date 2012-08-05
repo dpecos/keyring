@@ -67,6 +67,7 @@ Ext.define('KR.controller.ButtonGroupController', {
    manageCategories: function(button) {
       var popup = Ext.create('Ext.window.Window', {
          title: 'Categories',
+         modal: true,
          width: 400,
          items: [ {xtype: 'categorylist'} ],
       });

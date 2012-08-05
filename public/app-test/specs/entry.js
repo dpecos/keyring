@@ -52,7 +52,7 @@ describe('Entry List TESTs', function() {
          var store = listWidget.getStore();
          var model = store.getProxy().getModel();
 
-         expect(Ext.Array.pluck(model.getFields(), 'name')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes', 'id']);
+         expect(Ext.Array.pluck(model.getFields(), 'name')).toBeArray(['category', 'name', 'url', 'user', 'password', 'email', 'notes', '_id']);
       });
 
    });

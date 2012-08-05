@@ -66,15 +66,13 @@ Ext.define('KR.controller.EntryController', {
       var record = form.getRecord();
       var values = form.getValues();
    
-      var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
       values.cleartext_user = values.user;
       values.cleartext_password = values.password;
-      values.user = aes.encrypt(values.user);
-      values.password = aes.encrypt(values.password);
 
       var store = this.getEntryStoreStore();
       if (record == null) {
          record = Ext.create(this.getEntryModel(), values);
+         record.set(values);
          record = store.add(record);
       } else {
          record.set(values);

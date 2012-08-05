@@ -2,7 +2,7 @@ Ext.define('KR.controller.CategoryController', {
    extend: 'Ext.app.Controller',
 
    stores: [
-      'Categories'
+      'Categories', 'EntryStore'
    ],
 
    models: [
@@ -65,11 +65,16 @@ Ext.define('KR.controller.CategoryController', {
    save: function() {
       var store = this.getCategoriesStore();
       var me = this;
-      store.sync({
-         callback: function() {
-            me.closePopup();
-         }
-      });
+      if (store.getUpdatedRecords() != 0) {
+         store.sync({
+            callback: function() {
+               me.getEntryStoreStore().reload();
+               me.closePopup();
+            }
+         });
+      } else {
+         this.closePopup();
+      }
    },
 
    closePopup: function() {

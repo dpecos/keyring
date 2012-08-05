@@ -2,6 +2,8 @@ Ext.define('KR.view.category.List', {
    extend: 'Ext.grid.Panel', 
    alias: 'widget.categorylist',
 
+   height: 300,
+
    store: 'Categories',
 
    columnLines: true, 

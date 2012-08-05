@@ -3,6 +3,7 @@ Ext.define('KR.view.entry.Edit', {
    alias: 'widget.entryedit',
 
    title: 'Edit entry',
+   modal: true,
    layout: 'fit',
 
    initComponent: function() {
