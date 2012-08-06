@@ -26,7 +26,7 @@ app.configure('development', function(){
    app.use(express.errorHandler());
 });
 
-var db = new Db('node-mongo-keyring', new Server('localhost', 27017, {}), {native_parser: false});
+var db = new Db('keyring', new Server('localhost', 27017, {}), {native_parser: false});
 db.open(function(err, db) {});
 
 app.mongodb = db;

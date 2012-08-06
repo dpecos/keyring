@@ -26,21 +26,17 @@ Ext.define('KR.store.EntryStore', {
    listeners: {
       load: function(store, records, successful, eOpts) {
          if (successful) {
-            var filter =  new Ext.util.Filter({
-               filterFn: function(el) {
-                  if (KR.sharedData.password != null) {
-                     var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
-                     el.data.cleartext_user = aes.decrypt(el.data.user);
-                     el.data.cleartext_password = aes.decrypt(el.data.password);
-                  } else {
-                     el.data.cleartext_user = "***";
-                     el.data.cleartext_password = "***";
-                  }
-                  return true;
+            store.each(function(record) {
+               if (KR.sharedData.password != null) {
+                  var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
+                  record.set('cleartext_user', aes.decrypt(record.get('user')));
+                  record.set('cleartext_password', aes.decrypt(record.get('password')));
+               } else {
+                  record.set('cleartext_user', "***");
+                  record.set('cleartext_password', "***");
                }
+               return true;
             });
-            store.clearFilter();
-            store.filter(filter);
          }
       }
    },
@@ -51,6 +47,8 @@ Ext.define('KR.store.EntryStore', {
 
          var cipherRecord = function (record) {
             record.set({
+               cleartext_user: record.get('user'),
+               cleartext_password: record.get('password'),
                user: aes.encrypt(record.get('user')),
                password: aes.encrypt(record.get('password'))
             });

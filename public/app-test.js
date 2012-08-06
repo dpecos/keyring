@@ -21,42 +21,53 @@ Ext.onReady(function() {
          'EntryController'
       ],
 
+      refs: [
+         {
+            ref: 'Viewport',
+            selector: 'main'
+         }
+      ],
+
       autoCreateViewport: true,
 
       launch: function() {
-         var dummy_data = [
-            {   
-               id: 1, 
-               category: 'WebSites',
-               name: 'Google',
-               url: 'http://google.com', 
-               user: 'me',
-               password: 'p1',
-               email: 'me@google.com',
-               notes: null
-            },
-            {   
-               id: 2, 
-               category: 'WebSites',
-               name: 'Yahoo',
-               url: 'http://yahoo.com', 
-               user: 'me',
-               password: 'p2',
-               email: 'me@yahoo.com',
-               notes: null
-            }
-         ];
+         this.getViewport().hide();
+
          var proxy = new Ext.data.proxy.Memory({
-            model: 'KR.model.Entry',
-            data: dummy_data
+            model: 'KR.model.Entry'
          });
 
-         listController = Application.getController('KR.controller.EntryController');
-         listWidget = listController.getPanelView();
+         var listController = Application.getController('KR.controller.EntryController');
+         var listWidget = listController.getPanelView();
          listWidget.getStore().setProxy(proxy);
 
-         jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+         KR.sharedData.test = {
+            data : [
+               {   
+                  category: 'WebSites',
+                  name: 'Google',
+                  url: 'http://google.com', 
+                  user: 'w7sfUBYWFhbLrY7bSXfZe3o=',
+                  password: 'w7sfUBYWFhbLrY7bSXLLbXtl+36q',
+                  email: 'me@google.com',
+                  notes: null
+               }
+            ],
+            user: 'dummyuser',
+            password: 'dummypassword'
+         };
+
+         jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
          jasmine.getEnv().execute();
+      }, 
+
+      loadDemoEntries: function(store) {
+         var proxy = Ext.create('Ext.data.proxy.Memory', {
+            model: 'KR.model.Entry',
+            data: KR.sharedData.test.data
+         }); 
+         store.setProxy(proxy);
+         store.reload();
       }
 
    });
