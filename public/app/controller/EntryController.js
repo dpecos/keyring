@@ -48,9 +48,9 @@ Ext.define('KR.controller.EntryController', {
             newDialog.getForm().loadRecord(record);
          }
 
-         newDialog.show();
+         return newDialog.show();
       } else {
-         Ext.MessageBox.show({
+         return Ext.MessageBox.show({
             title: 'Error',
             msg: 'You must enter a session password first',
             buttons: Ext.MessageBox.OK,
