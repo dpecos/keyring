@@ -9,6 +9,7 @@ Ext.Loader.syncRequire('sharedData');
 Ext.require('Ext.app.Application');
 
 var Application = null;
+var console_reporter = null;
 
 Ext.onReady(function() {
 
@@ -56,8 +57,11 @@ Ext.onReady(function() {
             user: 'dummyuser',
             password: 'dummypassword'
          };
-
          jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
+         if (/phantom/i.test(Ext.userAgent)) {
+            console_reporter = new jasmine.ConsoleReporter();
+            jasmine.getEnv().addReporter(console_reporter);
+         }
          jasmine.getEnv().execute();
       }, 
 
