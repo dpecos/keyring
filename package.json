@@ -11,5 +11,7 @@
     "mongodb": "*",
     "passport": "*"
     "passport-google": "*"
+    "passport-yahoo": "*"
+    "passport-facebook": "*"
   }
 }
