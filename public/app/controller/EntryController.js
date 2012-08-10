@@ -76,6 +76,7 @@ Ext.define('KR.controller.EntryController', {
       
       store.sync({
          callback: function() {
+            store.reload();
             dialog.close();
          }
       });

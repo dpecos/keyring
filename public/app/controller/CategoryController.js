@@ -33,6 +33,10 @@ Ext.define('KR.controller.CategoryController', {
          },
          'categorylist button[name=cancelButton]': {
             click: this.closePopup
+         },
+         'categorylist': {
+            beforeedit: this.beforeedit,
+            edit: this.edit
          }
       });
 
@@ -65,9 +69,10 @@ Ext.define('KR.controller.CategoryController', {
    save: function() {
       var store = this.getCategoriesStore();
       var me = this;
-      if (store.getUpdatedRecords() != 0) {
+      if (store.getModifiedRecords() != 0 || store.getRemovedRecords() != 0) {
          store.sync({
             callback: function() {
+               me.getCategoriesStore().reload();
                me.getEntryStoreStore().reload();
                me.closePopup();
             }
@@ -81,6 +86,22 @@ Ext.define('KR.controller.CategoryController', {
       var store = this.getCategoriesStore();
       store.rejectChanges();
       this.getCategoryList().up().close();
+   },
+
+   beforeedit: function(editor, ev, eOpts) {
+      var model = this.getCategoryList().getSelectionModel();
+      this._selectedRecords = model.getSelection();
+   },
+
+   edit: function(editor, ev, eOpts) {
+      var model = this.getCategoryList().getSelectionModel();
+      if (this._selectedRecords != null) {
+         model.deselectAll();
+         model.select(this._selectedRecords);
+         delete this._selectedRecords;
+      } else {
+         model.deselect(ev.record);
+      }
    }
 
 });

@@ -7,6 +7,7 @@ Ext.define('KR.view.category.List', {
    store: 'Categories',
 
    columnLines: true, 
+
    selModel: {
       selType: 'checkboxmodel',
       mode: 'MULTI', 
