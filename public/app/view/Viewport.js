@@ -28,13 +28,18 @@ Ext.define('KR.view.Viewport', {
       {
          xtype: 'buttongroup',
          title: 'Operations',
-         width: 100,
+         width: 200,
          layout: { type: 'hbox', pack: 'center' }, 
          items: [
             {
                id: 'add_new_entry',
                text: 'New Entry',
                iconCls: 'add'
+            },
+            {
+               id: 'delete_entry',
+               text: 'Delete Entry',
+               iconCls: 'remove'
             }
          ]
       },

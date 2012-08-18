@@ -28,17 +28,19 @@ Ext.define('KR.controller.EntryController', {
    init: function() {
       this.control({
          'entrylist': {
-            itemdblclick: this.editEntry
+            itemdblclick: function(grid, record) { 
+               this.editEntry(record); 
+            }
          },
          'entryedit button[action=save]': {
-            click: this.updateEntry
+            click: this.storeEntry
          }
       });
 
       this.callParent(arguments);
    },
 
-   editEntry: function(grid, record) {
+   editEntry: function(record) {
       if (KR.sharedData.password != null) {
 
          var newDialog = Ext.widget('entryedit');
@@ -60,12 +62,36 @@ Ext.define('KR.controller.EntryController', {
 
    },
 
-   updateEntry: function(button) {
+   removeEntry: function() {
+      var model = this.getPanelView().getSelectionModel();
+      var selection = model.getSelection();
+      var store = this.getEntryStoreStore();
+      if (selection.length > 0) {
+         Ext.MessageBox.show({
+            title: 'Delete Entry',
+            msg: 'Are you sure you want to delete the selected entry?',
+            width: 300,
+            buttons: Ext.MessageBox.OKCANCEL,
+            icon: Ext.window.MessageBox.WARNING,
+            fn: function(button) {
+               if (button === 'ok') {
+                  Ext.Array.each(selection, function(item) {
+                     store.remove(item);
+                  });
+
+                  store.sync();
+               }
+            }
+         });
+      }
+   },
+
+   storeEntry: function(button) {
       var dialog = this.getEntryDialog();
       var form = dialog.getForm();
       var record = form.getRecord();
       var values = form.getValues();
-   
+
       var store = this.getEntryStoreStore();
       if (record == null) {
          record = Ext.create(this.getEntryModel(), values);
@@ -73,7 +99,7 @@ Ext.define('KR.controller.EntryController', {
       } else {
          record.set(values);
       }
-      
+
       store.sync({
          callback: function() {
             store.reload();
@@ -88,5 +114,5 @@ Ext.define('KR.controller.EntryController', {
       var columns = Ext.Array.filter(list.columns, function(el) {return el.dataIndex === 'cleartext_user' || el.dataIndex === 'cleartext_password'});
       Ext.Array.each(columns, function(el) {el.setVisible(visible)});
    }
-   
+
 });

@@ -16,6 +16,9 @@ Ext.define('KR.controller.ButtonGroupController', {
          'buttongroup > button[id=add_new_entry]': {
             click: this.addNewEntry
          },
+         'buttongroup > button[id=delete_entry]': {
+            click: this.removeEntry
+         },
          'buttongroup > button[id=manage_categories]': {
             click: this.manageCategories
          }
@@ -61,7 +64,12 @@ Ext.define('KR.controller.ButtonGroupController', {
 
    addNewEntry: function(button) {
       var listController = this.getController('KR.controller.EntryController');
-      listController.editEntry(listController.getEntryListView(), null); 
+      listController.editEntry(null); 
+   },
+
+   removeEntry: function(button) {
+      var listController = this.getController('KR.controller.EntryController');
+      listController.removeEntry();
    },
 
    manageCategories: function(button) {
