@@ -31,7 +31,7 @@ module.exports = function(app) {
 
          collection.findOne({_id: new ObjectID(_id), owner: req.user.uid}, function(err, el) {
             db.collection('entries', function(err, collection) {
-               collection.update({category: el.name, owner: req.user.uid}, {$set: {category: req.body.name}});
+               collection.update({category: el.name, owner: req.user.uid}, {$set: {category: req.body.name}}, {multi: true});
             });
             collection.update({_id: new ObjectID(_id), owner: req.user.uid}, {$set : req.body});
          });
