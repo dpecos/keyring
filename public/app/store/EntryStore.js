@@ -38,10 +38,22 @@ Ext.define('KR.store.EntryStore', {
                return true;
             });
          }
+      }, 
+      beforeSync: function(options) {
+         if (options.update) {
+            options.update = this.cipherData(options.update);
+         }
+         return true;
       }
    },
 
    add: function(records) {
+      records = this.cipherData(records);
+
+      return this.callParent([records]);
+   },
+
+   cipherData: function(records) {
       if (KR.sharedData.password != null) {
          var aes = Ext.create('DPM.util.crypto.AES', {password: KR.sharedData.password});
 
@@ -56,7 +68,7 @@ Ext.define('KR.store.EntryStore', {
          };
 
          if (Ext.isArray(records)) {
-            records = Ext.map(records, cipherRecord)
+            records = Ext.Array.map(records, cipherRecord);
          } else {
             records = cipherRecord(records);
          }
@@ -65,6 +77,6 @@ Ext.define('KR.store.EntryStore', {
          throw "Password can not be null";
       }
 
-      return this.callParent([records]);
+      return records;
    }
 });

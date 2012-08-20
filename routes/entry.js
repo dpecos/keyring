@@ -17,7 +17,7 @@ module.exports = function(app) {
       db.collection('entries', function(err, collection) {
          delete req.body._id;
 
-         req.owner = req.user.uid;
+         req.body.owner = req.user.uid;
          collection.insert(req.body);
          res.send({success: true});
       });
