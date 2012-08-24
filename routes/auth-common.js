@@ -4,11 +4,11 @@ module.exports = function(app) {
       if (req.isAuthenticated()) { 
          return next(); 
       } 
-      res.redirect('/login');
+      res.redirect(app.server.getUrl('/login'));
    }
 
    app.get('/', app.checkAuth, function(req, res) {
-      res.redirect('/index.html');
+      res.redirect(app.server.getUrl('/index.html'));
    });
 
    app.get('/login', function(req, res) {
@@ -17,7 +17,7 @@ module.exports = function(app) {
 
    app.get('/logout', function(req, res) {
       req.logout();
-      res.redirect('/');
+      res.redirect(app.server.getUrl('/'));
    });
 
 };

@@ -1,8 +1,3 @@
-
-/**
-* Module dependencies.
-*/
-
 var express = require('express')
 , http = require('http')
 , Db = require('mongodb').Db
@@ -32,13 +27,26 @@ app.configure('development', function(){
    app.use(express.errorHandler());
 });
 
-var db = new Db('keyring', new Server('localhost', 27017, {}), {native_parser: false});
-db.open(function(err, db) {});
+require('coffee-script');
+var config = require('./config').config;
 
-app.mongodb = db;
+app.server = config.server;
+app.server.baseUrl = (this.secure ? "https://" : "http://") + this.host + (this.port === null ? "" : ":" + this.port) + (this.path === null ? "" : this.path);
+app.server.getUrl = function(relativeUrl) {
+   return app.server.baseUrl + relativeUrl ? relativeUrl : "";
+}
 
-var routes = require('./routes')(app)
+var db = new Db('keyring', new Server(config.mongo.host, config.mongo.port, {}), {native_parser: false});
+db.open(function(err, db) {
+   if (err) {
+      console.log("Error stablishing connection to mongodb");
+      process.exit(1);
+   } else {
+      app.mongodb = db;
+      var routes = require('./routes')(app)
 
-http.createServer(app).listen(app.get('port'), function(){
-   console.log("Express server listening on port " + app.get('port'));
+      http.createServer(app).listen(app.get('port'), function() {
+         console.log("Express server listening on port " + app.get('port'));
+      });
+   }
 });

@@ -1,5 +1,5 @@
-var fs=require('fs');
-
+var fs = require('fs');
+ 
 module.exports = function(app){
 
    require('./auth-common.js')(app);

@@ -10,26 +10,27 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-passport.use(new GoogleStrategy(
-   {
-      returnURL: 'http://localhost:3000/auth/google/callback',
-      realm: 'http://localhost:3000'
-   },
-   function(identifier, profile, done) {
-      profile.uid = profile.emails[0].value;
-      profile.uname = profile.displayName;
-      return done(null, profile);
-   }
-));
-
 module.exports = function(app) {
+   var url = app.server.getUrl;
 
-   app.get('/auth/google', passport.authenticate('google', {failureRedirect: '/login'}), function(req, res) {
-      res.redirect('/');
+   passport.use(new GoogleStrategy(
+      {
+         returnURL: url('/auth/google/callback'),
+         realm: url()
+      },
+      function(identifier, profile, done) {
+         profile.uid = profile.emails[0].value;
+         profile.uname = profile.displayName;
+         return done(null, profile);
+      }
+   ));
+
+   app.get('/auth/google', passport.authenticate('google', {failureRedirect: url('/login')}), function(req, res) {
+      res.redirect(url('/'));
    });
 
-   app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/login'}), function(req, res) {
-      res.redirect('/');
+   app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: url('/login')}), function(req, res) {
+      res.redirect(url('/'));
    }); 
 
 };

@@ -10,27 +10,28 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-passport.use(new TwitterStrategy(
-   {
-      consumerKey: 'JhuV6WTNV64LUfzdBXw',
-      consumerSecret: '5PzByVmYxBvvkKenpfbJ0na9RLXXyg7MqEcH2whSBE',
-      callbackURL: 'http://localhost:3000/auth/twitter/callback',
-   },
-   function(token, tokenSecret, profile, done) {
-      profile.uid = profile.id + "@twitter";
-      profile.uname = profile.name;
-      return done(null, profile);
-   }
-));
-
 module.exports = function(app) {
+   var url = app.server.getUrl;
 
-   app.get('/auth/twitter', passport.authenticate('twitter', {failureRedirect: '/login'}), function(req, res) {
-      res.redirect('/');
+   passport.use(new TwitterStrategy(
+      {
+         consumerKey: 'JhuV6WTNV64LUfzdBXw',
+         consumerSecret: '5PzByVmYxBvvkKenpfbJ0na9RLXXyg7MqEcH2whSBE',
+         callbackURL: url('/auth/twitter/callback'),
+      },
+      function(token, tokenSecret, profile, done) {
+         profile.uid = profile.id + "@twitter";
+         profile.uname = profile.name;
+         return done(null, profile);
+      }
+   ));
+
+   app.get('/auth/twitter', passport.authenticate('twitter', {failureRedirect: url('/login')}), function(req, res) {
+      res.redirect(url('/'));
    });
 
-   app.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect: '/login'}), function(req, res) {
-      res.redirect('/');
+   app.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect: url('/login')}), function(req, res) {
+      res.redirect(url('/'));
    }); 
 
 };
