@@ -14,3 +14,7 @@ block content
 
   .provider#twitter
     a(href='/auth/twitter') Access with a Twitter account
+
+  if app.settings.env == 'development'
+    .provider#local
+      a(href='/auth/local?username=devel&password=devel') Access in development mode

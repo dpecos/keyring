@@ -10,6 +10,7 @@
     "jade": "*",
     "mongodb": "*",
     "passport": "*",
+    "passport-local": "*",
     "passport-google": "*",
     "passport-yahoo": "*",
     "passport-twitter": "*",

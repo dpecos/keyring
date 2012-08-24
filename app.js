@@ -7,8 +7,12 @@ var app = express();
 
 var passport = require('passport');
 
+require('coffee-script');
+var config = require('./config').config;
+app.server = config.server;
+
 app.configure(function(){
-   app.set('port', process.env.PORT || 3000);
+   app.set('port', process.env.PORT || app.server.port);
    app.set('views', __dirname + '/views');
    app.set('view engine', 'jade');
    app.use(express.favicon());
@@ -23,15 +27,18 @@ app.configure(function(){
    app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development', function(){
+app.configure('development', function() {
    app.use(express.errorHandler());
 });
 
-require('coffee-script');
-var config = require('./config').config;
+console.log("Environment: " + app.settings.env);
 
-app.server = config.server;
-app.server.baseUrl = (this.secure ? "https://" : "http://") + this.host + (this.port === null ? "" : ":" + this.port) + (this.path === null ? "" : this.path);
+app.server.baseUrl = 
+   (app.server.secure ? "https://" : "http://") +
+   app.server.host + 
+   (app.server.port === null ? "" : ":" + app.server.port) +
+   (app.server.path === null ? "" : app.server.path);
+
 app.server.getUrl = function(relativeUrl) {
    return app.server.baseUrl + relativeUrl ? relativeUrl : "";
 }
