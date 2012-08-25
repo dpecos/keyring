@@ -9,10 +9,9 @@ var passport = require('passport');
 
 require('coffee-script');
 var config = require('./config').config;
-app.server = config.server;
 
 app.configure(function(){
-   app.set('port', process.env.PORT || app.server.port);
+   app.set('port', process.env.PORT || config.server.port);
    app.set('views', __dirname + '/views');
    app.set('view engine', 'jade');
    app.use(express.favicon());
@@ -33,6 +32,12 @@ app.configure('development', function() {
 
 console.log("Environment: " + app.settings.env);
 
+if (config.frontend_server.host) {
+   app.server = config.frontend_server;
+} else {
+   app.server = config.server;
+} 
+
 app.server.baseUrl = 
    (app.server.secure ? "https://" : "http://") +
    app.server.host + 
@@ -40,7 +45,7 @@ app.server.baseUrl =
    (app.server.path === null ? "" : app.server.path);
 
 app.server.getUrl = function(relativeUrl) {
-   return app.server.baseUrl + relativeUrl ? relativeUrl : "";
+   return app.server.baseUrl + (relativeUrl ? relativeUrl : "");
 }
 
 var db = new Db('keyring', new Server(config.mongo.host, config.mongo.port, {}), {native_parser: false});

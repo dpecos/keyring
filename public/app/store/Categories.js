@@ -8,7 +8,7 @@ Ext.define('KR.store.Categories', {
 
    proxy: {
       type: 'rest',
-      url: '/data/category',
+      url: window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/data/category',
       reader: {
          type: 'json',
          root: 'data',

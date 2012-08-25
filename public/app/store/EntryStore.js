@@ -11,7 +11,7 @@ Ext.define('KR.store.EntryStore', {
 
    proxy: {
       type: 'rest',
-      url: '/data/entry',
+      url: window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/data/entry',
       reader: {
          type: 'json',
          root: 'data',

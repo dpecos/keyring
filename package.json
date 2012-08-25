@@ -9,6 +9,7 @@
     "express": "*",
     "jade": "*",
     "mongodb": "*",
+    "coffee-script": "*",
     "passport": "*",
     "passport-local": "*",
     "passport-google": "*",

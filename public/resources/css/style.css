@@ -20,17 +20,17 @@ body {
 }
 
 #google {
-   background-image: url(/resources/icons/providers/google.png);
+   background-image: url(../icons/providers/google.png);
 }
 
 #yahoo{
-   background-image: url(/resources/icons/providers/yahoo.png);
+   background-image: url(../icons/providers/yahoo.png);
 }
 
 #facebook{
-   background-image: url(/resources/icons/providers/facebook.png);
+   background-image: url(../icons/providers/facebook.png);
 }
 
 #twitter{
-   background-image: url(/resources/icons/providers/twitter.png);
+   background-image: url(../icons/providers/twitter.png);
 }

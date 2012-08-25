@@ -4,17 +4,17 @@ block content
   h1 KeyRing Login
 
   .provider#google
-    a(href='/auth/google') Access with a Google account
+    a(href=app.server.getUrl('/auth/google')) Access with a Google account
 
   .provider#yahoo 
-    a(href='/auth/yahoo') Access with a Yahoo account
+    a(href=app.server.getUrl('/auth/yahoo')) Access with a Yahoo account
 
   .provider#facebook
-    a(href='/auth/facebook') Access with a Facebook account
+    a(href=app.server.getUrl('/auth/facebook')) Access with a Facebook account
 
   .provider#twitter
-    a(href='/auth/twitter') Access with a Twitter account
+    a(href=app.server.getUrl('/auth/twitter')) Access with a Twitter account
 
   if app.settings.env == 'development'
     .provider#local
-      a(href='/auth/local?username=devel&password=devel') Access in development mode
+      a(href=app.server.getUrl('/auth/local?username=devel&password=devel')) Access in development mode
