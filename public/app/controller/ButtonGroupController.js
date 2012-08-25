@@ -36,8 +36,15 @@ Ext.define('KR.controller.ButtonGroupController', {
       listController.setColumnsVisible(button.text !== 'Show credentials');
    },
 
+
+createBox: function(t, s){
+       return '<div class="msg"><h3>' + t + '</h3><p>' + s + '</p></div>';
+    },
+
+
    toggleEncryption: function(button) {
       var store = this.getEntryStoreStore();
+      var controller = this.getController('ButtonGroupController');
 
       if (KR.sharedData.password == null) {
 
@@ -49,7 +56,26 @@ Ext.define('KR.controller.ButtonGroupController', {
                   KR.sharedData.password = text;
 
                   button.setText('Lock data');
-                  store.load();
+                  store.load({
+                     callback: function(records, operation, success) {
+
+                        var runner = new Ext.util.TaskRunner();
+                        var task = runner.start({
+                           run: function(startTime) {
+                              var diffTime = (new Date().getTime() - startTime) / 1000
+                              if (diffTime > KR.sharedData.timeout) {
+                                 controller.toggleEncryption(Ext.getCmp('toggle_decrypt_button'));
+                                 Ext.MessageBox.alert('Password timeout', 'Sensible data has been hidden because session timeout');
+                                 return false;
+                              } else {
+                                 return true;
+                              }
+                           },
+                           args: [new Date().getTime()],
+                           interval: 1000
+                        });
+                     }
+                  });
                }
                this.close();
             }
