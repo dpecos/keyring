@@ -21,6 +21,9 @@ Ext.define('KR.controller.ButtonGroupController', {
          },
          'buttongroup > button[id=manage_categories]': {
             click: this.manageCategories
+         },
+         'buttongroup > button[id=user_logout]': {
+            click: this.userLogout
          }
       });
    },
@@ -80,5 +83,9 @@ Ext.define('KR.controller.ButtonGroupController', {
          items: [ {xtype: 'categorylist'} ],
       });
       popup.show();
+   },
+
+   userLogout: function(button) {
+      window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/logout';
    }
 });

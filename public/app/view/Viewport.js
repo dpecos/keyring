@@ -55,6 +55,19 @@ Ext.define('KR.view.Viewport', {
                iconCls: 'grid'
             }
          ]
+      },
+      {
+         xtype: 'buttongroup',
+         title: 'User',
+         width: 100,
+         layout: { type: 'hbox', pack: 'center' },
+         items: [
+            {
+               id: 'user_logout',
+               text: 'Logout',
+               iconCls: 'logout'
+            }
+         ]
       }
    ], 
    items: {
