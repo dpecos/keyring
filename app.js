@@ -44,16 +44,32 @@ app.server.getUrl = function(relativeUrl) {
 }
 
 var db = new Db('keyring', new Server(config.mongo.host, config.mongo.port, {}), {native_parser: false});
+
+var launchApp = function() {
+   app.mongodb = db;
+   var routes = require('./routes')(app)
+
+   http.createServer(app).listen(app.get('port'), function() {
+      console.log("Express server listening on port " + app.get('port'));
+   });
+};
+
 db.open(function(err, db) {
    if (err) {
-      console.log("Error stablishing connection to mongodb");
+      console.log("Error authenticating to mongodb: " + err);
       process.exit(1);
-   } else {
-      app.mongodb = db;
-      var routes = require('./routes')(app)
-
-      http.createServer(app).listen(app.get('port'), function() {
-         console.log("Express server listening on port " + app.get('port'));
-      });
+   } else { 
+      if (config.mongo.user && config.mongo.password) {
+         db.authenticate(config.mongo.user, config.mongo.password, function(err, result) {
+            if (err) {
+               console.log("Error stablishing connection to mongodb: " + err);
+               process.exit(1);
+            } else {
+               launchApp();
+            }
+         });
+      } else {
+         launchApp();
+      }
    }
 });
