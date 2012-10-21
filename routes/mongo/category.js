@@ -1,8 +1,8 @@
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app) {
-   
-   var db = app.mongodb;
+  
+   var db = app.db;
 
    app.get('/data/category', app.checkAuth, function(req, res) {
       db.collection('categories', function(err, collection) {

@@ -51,7 +51,7 @@ app.server.getUrl = function(relativeUrl) {
 }
 
 var launchApp = function(db) {
-   app.mongodb = db;
+   app.db = db;
    var routes = require('./routes')(app)
 
    http.createServer(app).listen(app.get('port'), function() {
@@ -77,7 +77,7 @@ if (config.server.db == 'mysql') {
       }
    });
 
-} else if (app.server.db == 'mongodb') {
+} else if (app.server.db == 'mongo') {
    var db = new mongodb(config.mongo.database, new mongoserver(config.mongo.host, config.mongo.port, {}), {native_parser: false});
 
    db.open(function(err, db) {

@@ -1,9 +1,6 @@
-var ObjectID = require('mongodb').ObjectID;
-var DBRef = require('mongodb').DBRef;
-
 module.exports = function(app) {
    
-   var db = app.mongodb;
+   var db = app.db;
 
    app.get('/data/entry', app.checkAuth, function(req, res) {
       var sql = "select e.id as _id, c.name as category, e.name, e.url, e.user, e.password, e.email, e.notes from entries e, categories c, users u where " + 

@@ -3,7 +3,7 @@ var DBRef = require('mongodb').DBRef;
 
 module.exports = function(app) {
    
-   var db = app.mongodb;
+   var db = app.db;
 
    app.get('/data/entry', app.checkAuth, function(req, res) {
       db.collection('entries', function(err, collection) {
