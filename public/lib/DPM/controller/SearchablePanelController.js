@@ -99,7 +99,7 @@ Ext.define('DPM.controller.SearchablePanelController', {
                         });
                         // restore protected tags
                         Ext.each(matches, function(match) {
-                           cellHTML = cellHTML.replace(this.getSearchHelper().tagsProtect, match); 
+                           cellHTML = cellHTML.replace(that.getSearchHelper().tagsProtect, match); 
                         });
                         // update cell html
                         cell.dom.innerHTML = cellHTML;
