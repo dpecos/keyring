@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "*",
     "jade": "*",
+    "mysql": "2.0.0-alpha3",
     "mongodb": "*",
     "coffee-script": "*",
     "passport": "*",

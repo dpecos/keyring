@@ -1,7 +1,8 @@
-var express = require('express')
-, http = require('http')
-, Db = require('mongodb').Db
-, Server = require('mongodb').Server;
+var express = require('express'),
+   http = require('http'),
+   mysql = require('mysql'),
+   mongodb = require('mongodb').Db,
+   mongoserver = require('mongodb').Server;
 
 var app = express();
 
@@ -34,6 +35,7 @@ console.log("Environment: " + app.settings.env);
 
 if (config.frontend_server.host) {
    app.server = config.frontend_server;
+   app.server.db = config.server.db;
 } else {
    app.server = config.server;
 } 
@@ -48,9 +50,7 @@ app.server.getUrl = function(relativeUrl) {
    return app.server.baseUrl + (relativeUrl ? relativeUrl : "");
 }
 
-var db = new Db('keyring', new Server(config.mongo.host, config.mongo.port, {}), {native_parser: false});
-
-var launchApp = function() {
+var launchApp = function(db) {
    app.mongodb = db;
    var routes = require('./routes')(app)
 
@@ -59,22 +59,44 @@ var launchApp = function() {
    });
 };
 
-db.open(function(err, db) {
-   if (err) {
-      console.log("Error authenticating to mongodb: " + err);
-      process.exit(1);
-   } else { 
-      if (config.mongo.user && config.mongo.password) {
-         db.authenticate(config.mongo.user, config.mongo.password, function(err, result) {
-            if (err) {
-               console.log("Error stablishing connection to mongodb: " + err);
-               process.exit(1);
-            } else {
-               launchApp();
-            }
-         });
+if (config.server.db == 'mysql') {
+   var db = mysql.createConnection({
+      host: config.mysql.host, 
+      port: config.mysql.port, 
+      user: config.mysql.user,
+      password: config.mysql.password,
+      database: config.mysql.database
+   });
+
+   db.connect(function(err) {
+      if (err) {
+         console.log("Error authenticating to mysql: " + err);
+         process.exit(1);
       } else {
-         launchApp();
+         launchApp(db)
       }
-   }
-});
+   });
+
+} else if (app.server.db == 'mongodb') {
+   var db = new mongodb(config.mongo.database, new mongoserver(config.mongo.host, config.mongo.port, {}), {native_parser: false});
+
+   db.open(function(err, db) {
+      if (err) {
+         console.log("Error authenticating to mongodb: " + err);
+         process.exit(1);
+      } else { 
+         if (config.mongo.user && config.mongo.password) {
+            db.authenticate(config.mongo.user, config.mongo.password, function(err, result) {
+               if (err) {
+                  console.log("Error stablishing connection to mongodb: " + err);
+                  process.exit(1);
+               } else {
+                  launchApp(db);
+               }
+            });
+         } else {
+            launchApp(db);
+         }
+      }
+   });
+}
