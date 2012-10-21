@@ -35,6 +35,7 @@ console.log("Environment: " + app.settings.env);
 
 if (config.frontend_server.host) {
    app.server = config.frontend_server;
+   app.server.db = config.server.db;
 } else {
    app.server = config.server;
 } 

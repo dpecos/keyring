@@ -4,7 +4,7 @@ module.exports = function(app){
 
    require('./auth-common.js')(app);
 
-   fs.readdirSync(__dirname).forEach(function(file) {
+   var handleFile = function(route, file) {
       if (file == "index.js") return;
       if (file == "auth-common.js") return;
       if (file.indexOf('swp') >= 0) return;
@@ -12,8 +12,13 @@ module.exports = function(app){
 
       var name = file.substr(0, file.indexOf('.'));
       if (name != '') {
+         if (route != null) {
+            name = route + "/" + name;
+         }
          require('./' + name)(app);
       }
-   });
+   };
 
+   fs.readdirSync(__dirname).forEach(function(file) {handleFile(null, file);});
+   fs.readdirSync(__dirname + "/" + app.server.db).forEach(function(file) {handleFile(app.server.db, file);});
 };
