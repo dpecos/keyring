@@ -17,8 +17,10 @@ exports.config =
       password: 'mongo'
       database: 'keyring'
    mysql:
-      host: 'cassiopea'
+      host: 'localhost'
       port: 3306
       user: 'keyring'
       password: 'keyring'
       database: 'keyring'
+   sqlite:
+      database: '/tmp/keyring.db'
