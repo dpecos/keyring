@@ -3,15 +3,16 @@ module.exports = function(app) {
    var db = app.db;
 
    app.get('/data/entry', app.checkAuth, function(req, res) {
-      var sql = "select e.id as _id, c.name as category, e.name, e.url, e.user, e.password, e.email, e.notes from entries e, categories c, users u where " + 
+      var sql = "select e.id as _id, c.name as category, e.name, e.url, e.user, e.password, e.email, e.notes from entries e left join categories c on " +
+         "e.category = c.id, " +
+         "users u where " + 
          "e.owner = u.id and " +
-         "u.login = ? and " +
-         "e.category = c.id " +
+         "u.login = ? " +
          "order by upper(category), upper(e.name)"; 
 
       db.query(sql, [req.user.uid], function(err, rows, columns) {
          if (err) {
-               console.log("Error: " + err);
+            console.log("Error: " + err);
          } else {
             res.send({data: rows, success: true});
          }

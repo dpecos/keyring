@@ -44,7 +44,13 @@ module.exports = function(app) {
          if (err) {
             console.log("Error: " + err);
          } else {
-            res.send({success: !err});
+            db.query("update entries set category = null where category = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
+               if (err) {
+                  console.log("Error: " + err);
+               } else {
+                  res.send({success: !err});
+               }
+            });
          }
       });
       
