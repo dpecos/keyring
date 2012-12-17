@@ -13,7 +13,7 @@ module.exports = function(app) {
          if (err) {
                console.log("Error: " + err);
          } else {
-            res.send({data: rows, success: true})
+            res.send({data: rows, success: true});
          }
       });
 
