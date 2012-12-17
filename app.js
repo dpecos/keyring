@@ -2,7 +2,7 @@ var express = require('express'),
    http = require('http'),
    mysql = require('mysql'),
    mongodb = require('mongodb').Db,
-   sqlite = require('sqlite3').verbose(),
+   sqlite3 = require('sqlite3').verbose(),
    mongoserver = require('mongodb').Server;
 
 var app = express();

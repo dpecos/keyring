@@ -1,12 +1,17 @@
 module.exports = function(app) {
    
    var db = app.db;
+   
+   var sqlUsers = "CREATE TABLE users (id INTEGER PRIMARY KEY, login TEXT, username TEXT);";
+   var sqlCategories = "CREATE TABLE categories (id INTEGER PRIMARY KEY, name STRING, owner NUMERIC);";
+   var sqlEntries = "CREATE TABLE entries (category NUMERIC, owner NUMERIC, password TEXT, id INTEGER PRIMARY KEY, name TEXT, url TEXT, user TEXT, email TEXT, notes TEXT);";
 
    app.get('/data/entry', app.checkAuth, function(req, res) {
-      var sql = "select e.id as _id, c.name as category, e.name, e.url, e.user, e.password, e.email, e.notes from entries e, categories c, users u where " + 
+      var sql = "select e.id as _id, c.name as category, e.name, e.url, e.user, e.password, e.email, e.notes from entries e left join categories c on " +
+         "e.category = c.id, " +
+         "users u where " + 
          "e.owner = u.id and " +
-         "u.login = ? and " +
-         "e.category = c.id " +
+         "u.login = ? " +
          "order by upper(category), upper(e.name)"; 
 
       db.serialize(function() {
@@ -30,10 +35,22 @@ module.exports = function(app) {
             if (err) {
                console.log("Error: " + err);
             } else {
-               req.body.owner = rows[0].owner;
-               req.body.category = rows[0].id;
+               var sql = "insert into entries" +
+                  "(owner, category, name, url, user, password, email, notes) " + 
+                  "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-               db.run("insert into entries set ?", req.body, function(err) {
+               var data = [
+                  rows[0].owner,
+                  rows[0].id,
+                  req.body.name,
+                  req.body.url,
+                  req.body.user,
+                  req.body.password,
+                  req.body.email,
+                  req.body.notes
+               ];
+
+               db.run(sql, data, function(err) {
                   if (err) {
                      console.log("Error: " + err);
                   } else {
