@@ -22,3 +22,5 @@ exports.config =
       user: 'keyring'
       password: 'keyring'
       database: 'keyring'
+   sqlite:
+      database: '/tmp/keyring.db'

@@ -5,6 +5,10 @@ Install server dependencies as global:
 
     npm install -d
 
+This will install all dependencies. SQLite3 is built after download, so it requires in Ubuntu some extra packages:
+
+    sudo apt-get install libsqlite3-dev build-essential
+
 Mongodb
 =======
 

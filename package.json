@@ -10,6 +10,7 @@
     "jade": "*",
     "mysql": "2.0.0-alpha3",
     "mongodb": "*",
+    "sqlite3": "*",
     "coffee-script": "*",
     "passport": "*",
     "passport-local": "*",

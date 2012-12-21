@@ -2,6 +2,7 @@ var express = require('express'),
    http = require('http'),
    mysql = require('mysql'),
    mongodb = require('mongodb').Db,
+   sqlite3 = require('sqlite3').verbose(),
    mongoserver = require('mongodb').Server;
 
 var app = express();
@@ -48,11 +49,11 @@ app.server.baseUrl =
 
 app.server.getUrl = function(relativeUrl) {
    return app.server.baseUrl + (relativeUrl ? relativeUrl : "");
-}
+};
 
 var launchApp = function(db) {
    app.db = db;
-   var routes = require('./routes')(app)
+   var routes = require('./routes')(app);
 
    http.createServer(app).listen(app.get('port'), function() {
       console.log("Express server listening on port " + app.get('port'));
@@ -73,7 +74,7 @@ if (config.server.db == 'mysql') {
          console.log("Error authenticating to mysql: " + err);
          process.exit(1);
       } else {
-         launchApp(db)
+         launchApp(db);
       }
    });
 
@@ -99,4 +100,8 @@ if (config.server.db == 'mysql') {
          }
       }
    });
+
+} else if (app.server.db == 'sqlite') {
+   var db = new sqlite3.Database(config.sqlite.database);
+   launchApp(db);
 }
