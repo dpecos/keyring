@@ -3,9 +3,14 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('MyCtrl1', ['$scope', function($scope) {
+  .controller('MainCtrl', ['$scope', 'categoriesFacade', 'entriesFacade', function($scope, categoriesFacade, entriesFacade) {
+     $scope.categories = categoriesFacade.categories;
+     $scope.entries = entriesFacade.entries;
 
-  }])
-  .controller('MyCtrl2', ['$scope', function($scope) {
+     $scope.entriesByCategory = function(category) {
+        return $scope.entries.filter(function(entry) {
+           return entry.category === category.name;
+        });
+     };
 
   }]);
