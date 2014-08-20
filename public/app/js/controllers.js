@@ -7,7 +7,7 @@ angular.module('myApp.controllers', [])
      $scope.categories = categoriesFacade.categories;
      $scope.entries = entriesFacade.entries;
 
-     $scope.entriesByCategory = function(category) {
+     this.entriesByCategory = function(category) {
         return $scope.entries.filter(function(entry) {
            return entry.category === category.name;
         });
