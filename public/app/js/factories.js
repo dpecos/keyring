@@ -1,5 +1,5 @@
 angular.module('myApp.factories', [])
-  .factory("categoriesFacade", function() {
+  .factory("categoriesDAO", function() {
      return {
         categories: [
         {name: "foo", id: 1},
@@ -7,7 +7,7 @@ angular.module('myApp.factories', [])
         ]
      };
   })
-  .factory("entriesFacade", function() {
+  .factory("entriesDAO", function() {
      return {
         entries: [
            {name: "Entry 1", url: "http://", user: "User 1", email: "user1@email.com", password: "password1", notes: "Notes for entry 1", category: "foo"},

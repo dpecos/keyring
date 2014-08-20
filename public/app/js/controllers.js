@@ -3,9 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('MainCtrl', ['$scope', 'categoriesFacade', 'entriesFacade', function($scope, categoriesFacade, entriesFacade) {
-     $scope.categories = categoriesFacade.categories;
-     $scope.entries = entriesFacade.entries;
+  .controller('MainCtrl', ['$scope', 'categoriesDAO', 'entriesDAO', function($scope, categoriesDAO, entriesDAO) {
+     $scope.categories = categoriesDAO.categories;
+     $scope.entries = entriesDAO.entries;
 
      this.entriesByCategory = function(category) {
         return $scope.entries.filter(function(entry) {
