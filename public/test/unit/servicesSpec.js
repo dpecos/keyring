@@ -5,10 +5,12 @@
 describe('service', function() {
   beforeEach(module('myApp.services'));
 
+  describe('cryptoSRV', function() {
 
-  describe('version', function() {
-    it('should return current version', inject(function(version) {
-      expect(version).toEqual('0.1');
-    }));
+     it('should encrypt and decrypt properly', inject(function(cryptoSRV) {
+        var encrypted = cryptoSRV.encrypt("keyring", "keyring");
+        expect(cryptoSRV.decrypt(encrypted, "keyring")).toBe("keyring");
+     }));
+
   });
 });
