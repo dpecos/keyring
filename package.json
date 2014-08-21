@@ -6,12 +6,12 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
+    "express": "3.*",
     "jade": "*",
     "mysql": "2.0.0-alpha3",
     "mongodb": "*",
     "sqlite3": "*",
-    "coffee-script": "*",
+    "coffee-script": "1.6.*",
     "passport": "*",
     "passport-local": "*",
     "passport-google": "*",
