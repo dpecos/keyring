@@ -7,6 +7,7 @@ module.exports = function(app) {
          db.all("select c.name as name, c.id as _id from categories c, users u where c.owner = u.id and u.login = ?", [req.user.uid], function(err, rows) {
             if (err) {
                console.log("Error: " + err);
+               res.send(err, 500);
             } else {
                res.send({data: rows, success: true});
             }
@@ -24,6 +25,7 @@ module.exports = function(app) {
          db.run("insert into categories(name, owner) values (?, (select id from users where login = ?)) ", [req.body.name, req.body.owner], function(err) {
             if (err) {
                console.log("Error: " + err);
+               res.send(err, 500);
             } else {
                res.send({success: true});
             }
@@ -37,6 +39,7 @@ module.exports = function(app) {
          db.run("update categories set name = ? where id = ? and owner = (select id from users where login = ?)", [req.body.name, req.body._id, req.user.uid], function(err) {
             if (err) {
                console.log("Error: " + err);
+               res.send(err, 500);
             } else {
                res.send({success: !err});
             }
@@ -49,10 +52,12 @@ module.exports = function(app) {
          db.run("delete from categories where id = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
             if (err) {
                console.log("Error: " + err);
+               res.send(err, 500);
             } else {
                db.run("update entries set category = null where category = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
                   if (err) {
                      console.log("Error: " + err);
+                     res.send(err, 500);
                   } else {
                      res.send({success: !err});
                   }
