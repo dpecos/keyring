@@ -3,6 +3,7 @@
 /* Services */
 
 angular.module('myApp.services', []).
+  value('version', '0.1').
   service('cryptoSRV', function() {
      var currentPassword = null;
 
