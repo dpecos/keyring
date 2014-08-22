@@ -8,9 +8,10 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'myApp.factories',
-  'myApp.controllers'
+  'myApp.controllers',
+  'ui.bootstrap'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/main', {templateUrl: 'partials/main.html', controller: 'MainCtrl', controllerAs: 'Ctrl'});
-  $routeProvider.otherwise({redirectTo: '/main'});
+  $routeProvider.when('/list', {templateUrl: 'partials/entries.html', controller: 'EntriesCtrl', controllerAs: 'Ctrl'});
+  $routeProvider.otherwise({redirectTo: '/list'});
 }]);
