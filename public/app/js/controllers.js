@@ -13,9 +13,9 @@ angular.module('myApp.controllers', [])
            templateUrl: 'partials/categories.html',
            controller: 'CategoriesCtrl as Ctrl',
            resolve: {
-              categories: function() {
+              /*categories: function() {
                  return $scope.categories;
-              }
+              }*/
            }
         });
 
@@ -36,7 +36,16 @@ angular.module('myApp.controllers', [])
      };
   }])
 
-  .controller('CategoriesCtrl', ['$rootScope', '$q', 'entriesDAO', function($rootScope, $q, entriesDAO) {
+  .controller('EditCategoryCtrl', ['$scope', '$modalInstance', 'category', function($scope, $modalInstance, category) {
+     $scope.category = category;
+
+     this.save = function() {
+        $modalInstance.close($scope.category);
+     };
+  }])
+
+  .controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modal', 'categoriesDAO', function($rootScope, $scope, $q, $modal, categoriesDAO) {
+
      this.remove = function(category) {
         $rootScope.categories = $rootScope.categories.filter(function(cat) {
            return cat.name != category.name;
@@ -44,6 +53,26 @@ angular.module('myApp.controllers', [])
      };
 
      this.add = function() {
-        console.log(arguments);
+        var modalInstance = $modal.open({
+           templateUrl: 'partials/editCategory.html',
+           controller: 'EditCategoryCtrl as Ctrl',
+           //scope: $scope,
+           resolve: {
+              category: function() {
+                 return { name: null };
+              }
+           }
+        });
+
+        modalInstance.result.then(function(newCategory) {
+           $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
+              $scope.categories.push(category);
+           }, function(err) {
+              console.log(err);
+              alert("Error creating category: " + err.statusText);
+           });
+        }, function() {
+           // dialog closed without saving
+        });
      };
   }]);

@@ -3,6 +3,9 @@ angular.module('myApp.factories', [])
      return {
         load: function() {
            return $http.get("/data/category");
+        }, 
+        create: function(category) {
+           return $http.post("/data/category", category);
         }
      };
   })
