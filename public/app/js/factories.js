@@ -6,6 +6,9 @@ angular.module('myApp.factories', [])
         }, 
         create: function(category) {
            return $http.post("/data/category", category);
+        },
+        remove: function(category) {
+           return $http.delete("/data/category/" + category._id);
         }
      };
   })

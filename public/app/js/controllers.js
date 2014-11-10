@@ -5,7 +5,7 @@
 angular.module('myApp.controllers', [])
 
   .controller('MainCtrl', ['$rootScope', '$q', '$modal', 'categoriesDAO', function($rootScope, $q, $modal, categoriesDAO) {
-     $rootScope.categories = [{name: 'foo'}];
+     $rootScope.categories = [];
      $rootScope.entries = [];
 
      this.showCategories = function() {
@@ -67,20 +67,19 @@ angular.module('myApp.controllers', [])
      };
   }])
 
-  .controller('EditCategoryCtrl', ['$scope', '$modalInstance', 'category', function($scope, $modalInstance, category) {
-     $scope.category = category;
-
-     this.save = function() {
-        $modalInstance.close($scope.entry);
-     };
-  }])
-
   .controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modal', 'categoriesDAO', function($rootScope, $scope, $q, $modal, categoriesDAO) {
-     //$q.when(categoriesDAO.load()).then(function(categories) { $rootScope.categories = categories; });
+     var me = this; 
+
+     this.load = function() {
+        $q.when(categoriesDAO.load()).then(function(payload) { $rootScope.categories = payload.data.data; });
+     };
 
      this.remove = function(category) {
-        $rootScope.categories = $rootScope.categories.filter(function(cat) {
-           return cat.name != category.name;
+        $q.when(categoriesDAO.remove(category)).then(function(error) {
+           //TODO: handle error
+           $rootScope.categories = $rootScope.categories.filter(function(cat) {
+              return cat.name != category.name;
+           });
         });
      };
 
@@ -98,7 +97,7 @@ angular.module('myApp.controllers', [])
 
         modalInstance.result.then(function(newCategory) {
            $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
-              $scope.categories.push(category);
+              me.load();
            }, function(err) {
               console.log(err);
               alert("Error creating category: " + err.statusText);
@@ -106,5 +105,15 @@ angular.module('myApp.controllers', [])
         }, function() {
            // dialog closed without saving
         });
+     };
+
+     this.load();
+  }])
+
+  .controller('EditCategoryCtrl', ['$scope', '$modalInstance', 'category', function($scope, $modalInstance, category) {
+     $scope.category = category;
+
+     this.save = function() {
+        $modalInstance.close($scope.category);
      };
   }]);
