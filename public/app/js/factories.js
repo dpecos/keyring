@@ -15,11 +15,7 @@ angular.module('myApp.factories', [])
   .factory("entriesDAO", function($http) {
      return {
         load: function() {
-           return [
-           {name: "Entry 1", url: "http://", user: "User 1", email: "user1@email.com", password: "password1", notes: "Notes for entry 1", category: "foo"},
-           {name: "Entry 2", url: "http://", user: "User 1", email: "user1@email.com", password: "password1", notes: "Notes for entry 1", category: "bar"},
-           {name: "Entry 2", url: "http://", user: "User 1", email: "user1@email.com", password: "password1", notes: "Notes for entry 1", category: "foo"}
-           ]
+           return $http.get("/data/entry");
         },
         create: function(entry) {
            return $http.post("/data/entry", entry);
