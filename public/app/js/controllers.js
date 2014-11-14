@@ -71,9 +71,41 @@ angular.module('myApp.controllers', [])
 
   }])
 
-  .controller('EntriesCtrl', ['$rootScope', '$scope', '$q', 'entriesDAO', function($rootScope, $scope, $q, entriesDAO) {
-     var me = this; 
+  .controller('MasterPasswordCtrl', ['$rootScope', '$scope', '$modal', function($rootScope, $scope, $modal) {
+     this.show = function() {
+        var modalInstance = $modal.open({
+           templateUrl: 'partials/masterPassword.html',
+           controller: 'ChangeMasterPasswordCtrl as Ctrl',
+           resolve: {
+              masterPassword: function() {
+                 return "";
+              }
+           }
+        });
 
+        modalInstance.result.then(function(password) {
+           $rootScope.masterPassword = password;
+           $rootScope.checkLock();
+        }, function() {
+           $rootScope.masterPassword = null;
+           $rootScope.checkLock();
+        });
+     };
+
+  }])
+
+  .controller('ChangeMasterPasswordCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+     this.accept = function() {
+        $modalInstance.close($scope.masterPassword);
+     };
+
+     this.cancel = function() {
+        $modalInstance.close();
+     };
+
+  }])
+
+  .controller('EntriesCtrl', ['$rootScope', '$scope', '$q', 'entriesDAO', function($rootScope, $scope, $q, entriesDAO) {
      this.entriesByCategory = function(category) {
         return $rootScope.entries.filter(function(entry) {
            return entry.category === category.name;
@@ -99,8 +131,6 @@ angular.module('myApp.controllers', [])
   }])
 
   .controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modal', 'categoriesDAO', function($rootScope, $scope, $q, $modal, categoriesDAO) {
-     var me = this; 
-
      this.remove = function(category) {
         $q.when(categoriesDAO.remove(category)).then(function(error) {
            //TODO: handle error
