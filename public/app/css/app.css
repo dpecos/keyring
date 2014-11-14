@@ -98,6 +98,12 @@ body {
   background-color: #428bca;
 }
 
+.navbar .glyphicon {
+   font-size: 24px;
+   color: #BBBBBB;
+   margin: 11px;
+}
+
 
 /*
  * Main content
