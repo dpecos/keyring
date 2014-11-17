@@ -104,6 +104,10 @@ body {
    margin: 11px;
 }
 
+.glyphicon.disabled {
+   color: #999999;
+   opacity: 0.25;
+}
 
 /*
  * Main content

@@ -7,13 +7,13 @@
            <thead>
              <tr>
                <th>Name</th>
-               <th>Actions</th>
+               <th style="text-align: right">Actions</th>
              </tr>
            </thead>
            <tbody>
              <tr ng-repeat="category in categories">
                 <td>{{category.name}}</td>
-                <td><a href="" ng-click="Ctrl.remove(category)">Remove</a></td>
+                <td style="text-align: right"><span class="glyphicon glyphicon-trash" ng-click="Ctrl.remove(category)"></span></td>
              </tr>
            </tbody>
          </table>

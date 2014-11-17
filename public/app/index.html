@@ -32,12 +32,10 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right" ng-controller="MainCtrl as Ctrl">
-            <li ng-controller="MasterPasswordCtrl as PasswordCtrl">
-              <span ng-click="PasswordCtrl.show()" class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-            </li>
-            <li><a href="" ng-show="masterPassword" ng-click="Ctrl.showCategories()">Categories</a></li>
-            <li><a href="" ng-show="masterPassword" ng-click="Ctrl.addNewEntry()">New entry</a></li>
-            <li><span class="glyphicon glyphicon-off" aria-hidden="true"></span></li>
+            <li><span class="glyphicon glyphicon-tags" ng-show="masterPassword" ng-click="Ctrl.showCategories()"></span></li>
+            <li><span class="glyphicon glyphicon-plus-sign" ng-show="masterPassword" ng-click="Ctrl.addNewEntry()"></span></lid>
+            <li ng-controller="MasterPasswordCtrl as PasswordCtrl"><span ng-click="PasswordCtrl.show()" class="glyphicon glyphicon-lock" ng-class="{disabled: masterPassword}" aria-hidden="true"></span></li>
+            <li><span class="glyphicon glyphicon-off" aria-hidden="true" onclick="document.location.href='/'"></span></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">

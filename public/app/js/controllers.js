@@ -95,8 +95,10 @@ angular.module('myApp.controllers', [])
   }])
 
   .controller('ChangeMasterPasswordCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
-     this.accept = function() {
-        $modalInstance.close($scope.masterPassword);
+     this.accept = function(keyEvent) {
+        if (typeof(keyEvent) == "undefined" || keyEvent.which == 13) {
+           $modalInstance.close($scope.masterPassword);
+        }
      };
 
      this.cancel = function() {
