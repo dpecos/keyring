@@ -52,10 +52,6 @@ angular.module('myApp.controllers', [])
         });
      };
 
-     $rootScope.reloadData = function() {
-        loadCategories().then(loadEntries);
-     };
-
      $rootScope.checkLock = function() {
         $rootScope.entries = $rootScope.entries.map(function(entry) {
            if ($rootScope.masterPassword) {
@@ -65,6 +61,10 @@ angular.module('myApp.controllers', [])
            }
            return entry;
         });
+     };
+
+     $rootScope.reloadData = function() {
+        loadCategories().then(loadEntries);
      };
 
      $rootScope.reloadData();

@@ -1,17 +1,17 @@
 <div class="container-fluid main">
-   <form class="form-horizontal" role="form">
-      <div class="form-group">
+   <form name="entryForm" class="form-horizontal" role="form" novalidate>
+      <div class="form-group" ng-class="{'has-error': entryForm.category.$invalid}">
          <label for="category" class="control-label col-sm-3">Category</label>
          <div class="col-sm-9">
-            <select id="category" class="form-control" ng-model="entry.category">
+            <select id="category" name="category" class="form-control" ng-model="entry.category" required>
                <option ng-repeat="category in categories">{{category.name}}</option>
             </select>
          </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-class="{'has-error': entryForm.name.$invalid}">
          <label for="name" class="control-label col-sm-3">Name</label>
          <div class="col-sm-9">
-            <input type="text" id="name" class="form-control" ng-model="entry.name" placeholder="Name">
+            <input type="text" id="name" name="name" class="form-control" ng-model="entry.name" placeholder="Name" required>
          </div>
       </div>
       <div class="form-group">
@@ -26,10 +26,10 @@
             <input type="text" id="user" class="form-control" ng-model="entry.user" placeholder="User">
          </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-class="{'has-error': entryForm.password.$invalid}">
          <label for="password" class="control-label col-sm-3">Password</label>
          <div class="col-sm-9">
-            <input type="password" id="password" class="form-control" ng-model="entry.password" placeholder="Password">
+            <input type="password" id="password" name="password" class="form-control" ng-model="entry.password" placeholder="Password" required>
          </div>
       </div>
       <div class="form-group">
@@ -45,6 +45,6 @@
             <input type="text" id="notes" class="form-control" ng-model="entry.notes" placeholder="Notes">
          </div>
       </div>
-      <button type="button" class="btn btn-primary pull-right" ng-click="Ctrl.save(entry)">Save</button>
+      <button type="button" class="btn btn-primary pull-right" ng-click="Ctrl.save(entry)" ng-disabled="entryForm.$invalid">Save</button>
    </form>
 </div> 
