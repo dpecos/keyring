@@ -27,7 +27,11 @@
                    <td>{{entry.name}}</td>
                    <td>{{entry.url}}</td>
                    <td>{{entry.user}}</td>
-                   <td>{{entry.clearPassword}}</td>
+                   <td ng-class="{danger: reveal}" ng-mouseover="reveal = true" ng-mouseout="reveal = false">
+                      <span ng-show="!reveal">***</span>
+                      <span ng-show="reveal">{{entry.clearPassword}}</span>
+                      <span ng-show="masterPassword" ng-class="{'glyphicon-eye-open': reveal, 'glyphicon-eye-close disabled': !reveal}" class="glyphicon pull-right" aria-hidden="true"></span>
+                   </td>
                    <td>{{entry.email}}</td>
                    <td>{{entry.notes}}</td>
                 </tr>
