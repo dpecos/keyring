@@ -1,0 +1,6 @@
+<div ng-class="{'text-danger': reveal}" ng-mouseover="reveal = $root.masterPassword && true" ng-mouseout="reveal = false">
+  <span ng-show="!reveal">***</span>
+  <span ng-show="reveal">{{data}}</span>
+  <span ng-class="{'glyphicon-ban-circle disabled': !$root.masterPassword, 'glyphicon-eye-open': $root.masterPassword && reveal, 'glyphicon-eye-close disabled': $root.masterPassword && !reveal}" class="glyphicon pull-right" aria-hidden="true"></span>
+</div>
+

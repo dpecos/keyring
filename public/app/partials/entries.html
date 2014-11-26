@@ -20,20 +20,20 @@
                   <th>Password</th>
                   <th>Email</th>
                   <th>Notes</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="entry in Ctrl.entriesByCategory(category)">
                    <td>{{entry.name}}</td>
                    <td>{{entry.url}}</td>
-                   <td>{{entry.user}}</td>
-                   <td ng-class="{danger: reveal}" ng-mouseover="reveal = true" ng-mouseout="reveal = false">
-                      <span ng-show="!reveal">***</span>
-                      <span ng-show="reveal">{{entry.clearPassword}}</span>
-                      <span ng-show="masterPassword" ng-class="{'glyphicon-eye-open': reveal, 'glyphicon-eye-close disabled': !reveal}" class="glyphicon pull-right" aria-hidden="true"></span>
-                   </td>
+                   <td reveal data="entry.user"></td>
+                   <td reveal data="entry.clearPassword"></td>
                    <td>{{entry.email}}</td>
                    <td>{{entry.notes}}</td>
+                   <td>
+                      <span ng-show="masterPassword" class="glyphicon glyphicon-pencil pull-left" aria-hidden="true"></span>
+                   </td>
                 </tr>
               </tbody>
             </table>
