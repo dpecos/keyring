@@ -8,7 +8,7 @@ module.exports = function(app) {
    }
 
    app.get('/', app.checkAuth, function(req, res) {
-      res.redirect(app.server.getUrl('/index.html'));
+      res.redirect(app.server.getUrl('/app/index.html'));
    });
 
    app.get('/login', function(req, res) {
