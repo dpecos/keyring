@@ -1,17 +1,22 @@
 <div class="container-fluid">
    <div class="row">
      <div class="col-sm-3 col-md-2 sidebar">
+       <form class="filter">
+         <input type="text" class="form-control" placeholder="Filter..." ng-model="search">
+       </form>
+       <h4>Categories</h4>
        <ul class="nav nav-sidebar">
-          <li ng-repeat="category in categories"><a href="#/category/{{category.id}}">{{category.name}}</a></li>
+          <li ng-repeat="category in categories"><a href="#{{category.id}}">{{category.name}}</a></li>
        </ul>
+      <div class="version">Keyring version: <span app-version></span></div>
      </div>
      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-       <!--<h1 class="page-header">Dashboard</h1>-->
 
        <div class="category" ng-repeat="category in categories | orderBy: 'name'">
+          <a name="category.id"/>
           <h2 class="sub-header">{{category.name}}</h2>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped entries">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -24,7 +29,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="entry in Ctrl.entriesByCategory(category) | orderBy: 'name'">
+                <tr ng-repeat="entry in Ctrl.entriesByCategory(category) | filter: search | orderBy: 'name'">
                    <td>{{entry.name}}</td>
                    <td>{{entry.url}}</td>
                    <td reveal data="entry.user"></td>

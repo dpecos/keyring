@@ -35,11 +35,8 @@
             <li><span class="glyphicon glyphicon-tags" ng-show="masterPassword" ng-click="Ctrl.showCategories()"></span></li>
             <li><span class="glyphicon glyphicon-plus-sign" ng-show="masterPassword" ng-click="Ctrl.addNewEntry()"></span></lid>
             <li ng-controller="MasterPasswordCtrl as PasswordCtrl"><span ng-click="PasswordCtrl.show()" class="glyphicon glyphicon-lock" ng-class="{disabled: masterPassword}" aria-hidden="true"></span></li>
-            <li><span class="glyphicon glyphicon-off" aria-hidden="true" onclick="document.location.href='/'"></span></li>
+            <li><span class="glyphicon glyphicon-off" aria-hidden="true" onclick="document.location.href='../logout'"></span></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
         </div>
       </div>
     </div>
@@ -49,8 +46,6 @@
   <![endif]-->
 
   <div ng-view></div>
-
-  <div>Angular seed app: v<span app-version></span></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
