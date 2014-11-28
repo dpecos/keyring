@@ -33,6 +33,7 @@
                    <td>{{entry.notes}}</td>
                    <td>
                       <span ng-show="masterPassword" class="glyphicon glyphicon-pencil pull-left" aria-hidden="true" ng-click="Ctrl.editEntry(entry)"></span>
+                      <span ng-show="masterPassword" class="glyphicon glyphicon-trash pull-left" aria-hidden="true" ng-click="Ctrl.deleteEntry(entry)"></span>
                    </td>
                 </tr>
               </tbody>

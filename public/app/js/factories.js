@@ -22,6 +22,9 @@ angular.module('myApp.factories', [])
       },
       update: function(entry) {
         return $http.put("/data/entry/" + entry._id, entry);
+      },
+      remove: function(entry) {
+        return $http.delete("/data/entry/" + entry._id);
       }
     };
   });
