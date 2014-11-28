@@ -40,11 +40,11 @@ module.exports = function(app) {
    });
 
    app.del('/data/category/:id?', function(req, res) {
-      db.query("delete from categories where id = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
+      db.query("delete from categories where id = ? and owner = (select id from users where login = ?)", [req.params.id, req.user.uid], function(err) {
          if (err) {
             console.log("Error: " + err);
          } else {
-            db.query("update entries set category = null where category = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
+            db.query("update entries set category = null where category = ? and owner = (select id from users where login = ?)", [req.params.id, req.user.uid], function(err) {
                if (err) {
                   console.log("Error: " + err);
                } else {

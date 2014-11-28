@@ -46,7 +46,7 @@ module.exports = function(app) {
 
    app.del('/data/entry/:id?', app.checkAuth, function(req, res) {
       db.collection('entries', function(err, collection) {
-         collection.remove({_id: new ObjectID(req.body._id), owner: req.user.uid}, function(err) {
+         collection.remove({_id: new ObjectID(req.params.id), owner: req.user.uid}, function(err) {
             if (err) {
                console.log("Error: " + err);
             } else {

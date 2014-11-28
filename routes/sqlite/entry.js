@@ -1,7 +1,7 @@
 module.exports = function(app) {
-   
+
    var db = app.db;
-   
+
    var sqlUsers = "CREATE TABLE users (id INTEGER PRIMARY KEY, login TEXT, username TEXT);";
    var sqlCategories = "CREATE TABLE categories (id INTEGER PRIMARY KEY, name STRING, owner NUMERIC);";
    var sqlEntries = "CREATE TABLE entries (category NUMERIC, owner NUMERIC, password TEXT, id INTEGER PRIMARY KEY, name TEXT, url TEXT, user TEXT, email TEXT, notes TEXT);";
@@ -27,7 +27,7 @@ module.exports = function(app) {
    });
 
    app.post('/data/entry', app.checkAuth, function(req, res) {
-      
+
       delete req.body._id;
 
       db.serialize(function() {
@@ -106,9 +106,10 @@ module.exports = function(app) {
 
    app.del('/data/entry/:id?', app.checkAuth, function(req, res) {
       db.serialize(function() {
-         db.run("delete from entries where id = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
+         db.run("delete from entries where id = ? and owner = (select id from users where login = ?)", [req.params.id, req.user.uid], function(err) {
             if (err) {
                console.log("Error: " + err);
+               res.send(err, 500);
             } else {
                res.send({success: !err});
             }
