@@ -1,4 +1,4 @@
-angular.module('myApp.factories', [])
+angular.module('KeyRing.factories', [])
   .factory("categoriesDAO", function($http) {
     return {
       load: function() {

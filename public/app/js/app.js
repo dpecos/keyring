@@ -2,13 +2,13 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [
+angular.module('KeyRing', [
   'ngRoute',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives',
-  'myApp.factories',
-  'myApp.controllers',
+  'KeyRing.filters',
+  'KeyRing.services',
+  'KeyRing.directives',
+  'KeyRing.factories',
+  'KeyRing.controllers',
   'ui.bootstrap'
 ]).
 config(['$routeProvider', function($routeProvider) {

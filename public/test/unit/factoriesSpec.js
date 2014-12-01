@@ -3,7 +3,7 @@
 /* jasmine specs for controllers go here */
 
 describe('factories', function(){
-  beforeEach(module('myApp.factories'));
+  beforeEach(module('KeyRing.factories'));
 
   describe('categoriesDAO', function() {
      var categoriesDAO = null;

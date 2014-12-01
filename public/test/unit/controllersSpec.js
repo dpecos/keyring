@@ -3,8 +3,8 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function(){
-  beforeEach(module('myApp.controllers'));
-  beforeEach(module('myApp.factories'));
+  beforeEach(module('KeyRing.controllers'));
+  beforeEach(module('KeyRing.factories'));
 
   describe('EntriesCtrl', function() {
      var scope = null;

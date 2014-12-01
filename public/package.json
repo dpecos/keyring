@@ -1,9 +1,9 @@
 {
-  "name": "angular-seed",
+  "name": "keyring",
   "private": true,
-  "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "https://github.com/dpecos/keyring",
   "license": "MIT",
   "devDependencies": {
     "karma": "~0.10",

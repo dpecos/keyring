@@ -29,7 +29,7 @@ function showEntryDialog(entry, $modal) {
    });
 }
 
-angular.module('myApp.controllers', [])
+angular.module('KeyRing.controllers', [])
 
 .controller('MainCtrl', ['$rootScope', '$q', '$modal', 'categoriesDAO', 'entriesDAO', 'cryptoSRV', function($rootScope, $q, $modal, categoriesDAO, entriesDAO, cryptoSRV) {
    $rootScope.categories = [];
