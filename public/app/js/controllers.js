@@ -43,7 +43,6 @@ angular.module('KeyRing.controllers', [])
 
       modalInstance.result.then(null, function(categories) {
          // TODO
-         console.log(arguments);
       });
    };
 
@@ -117,7 +116,7 @@ angular.module('KeyRing.controllers', [])
 
 }])
 
-.controller('EntriesCtrl', ['$rootScope', '$scope', '$q', '$modal', 'entriesDAO', function($rootScope, $scope, $q, $modal, entriesDAO) {
+.controller('EntriesCtrl', ['$rootScope', '$scope', '$q', '$modal', '$log', 'entriesDAO', function($rootScope, $scope, $q, $modal, $log, entriesDAO) {
    this.entriesByCategory = function(category) {
       return $rootScope.entries.filter(function(entry) {
          return entry.category === category.name;
@@ -133,14 +132,14 @@ angular.module('KeyRing.controllers', [])
          var index = $rootScope.entries.indexOf(entry);
          $rootScope.entries.splice(index, 1);
       }, function(err) {
-         console.log(err);
+         $log.error(err);
          alert("Error deleting entry: " + err.statusText);
       });
 
    }
 }])
 
-.controller('EditEntryCtrl', ['$rootScope', '$scope', '$q', '$modalInstance', 'entriesDAO', 'cryptoSRV', 'entry', function($rootScope, $scope, $q, $modalInstance, entriesDAO, cryptoSRV, entry) {
+.controller('EditEntryCtrl', ['$rootScope', '$scope', '$q', '$modalInstance', '$log', 'entriesDAO', 'cryptoSRV', 'entry', function($rootScope, $scope, $q, $modalInstance, $log, entriesDAO, cryptoSRV, entry) {
    $scope.entry = entry;
 
    this.save = function() {
@@ -151,7 +150,7 @@ angular.module('KeyRing.controllers', [])
          $q.when(entriesDAO.update(entry)).then(function(response) { 
             $modalInstance.close(response);
          }, function(err) {
-            console.log(err);
+            $log.error(err);
             alert("Error updating entry: " + err.statusText);
          });
       } else {
@@ -159,14 +158,14 @@ angular.module('KeyRing.controllers', [])
             $modalInstance.close(response);
             $rootScope.reloadData();
          }, function(err) {
-            console.log(err);
+            $log.error(err);
             alert("Error creating entry: " + err.statusText);
          });
       }
    };
 }])
 
-.controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modal', 'categoriesDAO', function($rootScope, $scope, $q, $modal, categoriesDAO) {
+.controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modal', '$log', 'categoriesDAO', function($rootScope, $scope, $q, $modal, $log, categoriesDAO) {
    this.remove = function(category) {
       $q.when(categoriesDAO.remove(category)).then(function(error) {
          //TODO: handle error
@@ -192,7 +191,7 @@ angular.module('KeyRing.controllers', [])
          $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
             $rootScope.reloadData();
          }, function(err) {
-            console.log(err);
+            $log.error(err);
             alert("Error creating category: " + err.statusText);
          });
       }, function() {
