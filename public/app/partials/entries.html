@@ -32,7 +32,7 @@
                 <tr ng-repeat="entry in Ctrl.entriesByCategory(category) | filter: search | orderBy: 'name'">
                    <td>{{entry.name}}</td>
                    <td>{{entry.url}}</td>
-                   <td reveal data="entry.user"></td>
+                   <td>{{entry.clearUser}}</td>
                    <td reveal data="entry.clearPassword"></td>
                    <td>{{entry.email}}</td>
                    <td>{{entry.notes}}</td>

@@ -6,7 +6,9 @@ function showEntryDialog(entry, $modal) {
    var isNewEntry = entry == null;
    entry = entry || {};
 
+   var previousCipheredUser = entry.user;
    var previousCipheredPassword = entry.password;
+   entry.user = entry.clearUser;
    entry.password = entry.clearPassword;
 
    var modalInstance = $modal.open({
@@ -24,6 +26,7 @@ function showEntryDialog(entry, $modal) {
    }, function() {
       //cancel
       if (!isNewEntry) {
+         entry.user = previousCipheredUser;
          entry.password = previousCipheredPassword;
       }
    });
@@ -64,8 +67,10 @@ angular.module('KeyRing.controllers', [])
    $rootScope.checkLock = function() {
       $rootScope.entries = $rootScope.entries.map(function(entry) {
          if ($rootScope.masterPassword) {
+            entry.clearUser = cryptoSRV.decrypt(entry.user, $rootScope.masterPassword);
             entry.clearPassword = cryptoSRV.decrypt(entry.password, $rootScope.masterPassword);
          } else {
+            delete entry.clearUser;
             delete entry.clearPassword;
          }
          return entry;
@@ -143,7 +148,10 @@ angular.module('KeyRing.controllers', [])
    $scope.entry = entry;
 
    this.save = function() {
+      entry.clearUser = entry.user;
       entry.clearPassword = entry.password;
+
+      entry.user = cryptoSRV.encrypt(entry.clearUser,  $rootScope.masterPassword);
       entry.password = cryptoSRV.encrypt(entry.clearPassword,  $rootScope.masterPassword);
 
       if (entry._id) {
