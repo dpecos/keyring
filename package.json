@@ -17,6 +17,8 @@
     "passport-google": "*",
     "passport-yahoo": "*",
     "passport-twitter": "*",
-    "passport-facebook": "*"
+    "passport-facebook": "*",
+    "crypto-js": "^3.1.2-5",
+    "prompt": "^0.2.14"
   }
 }
