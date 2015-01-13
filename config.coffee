@@ -4,7 +4,7 @@ exports.config =
       host: 'localhost'
       port: 3000
       path: null
-      db: 'mysql'
+      db: 'sqlite'
    frontend_server:
       secure: false
       host: null

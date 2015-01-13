@@ -82,7 +82,7 @@ module.exports = function(app) {
    });
 
    app.del('/data/entry/:id?', app.checkAuth, function(req, res) {
-      db.query("delete from entries where id = ? and owner = (select id from users where login = ?)", [req.body._id, req.user.uid], function(err) {
+      db.query("delete from entries where id = ? and owner = (select id from users where login = ?)", [req.params.id, req.user.uid], function(err) {
          if (err) {
             console.log("Error: " + err);
          } else {

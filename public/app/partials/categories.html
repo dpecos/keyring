@@ -1,0 +1,25 @@
+<div class="container-fluid">
+   <div class="row">
+     <div class="col-sm-12 col-md-12 main">
+
+       <div class="table-responsive">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th style="text-align: right">Actions</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr ng-repeat="category in categories">
+                <td>{{category.name}}</td>
+                <td style="text-align: right"><span class="glyphicon glyphicon-trash" ng-click="Ctrl.remove(category)"></span></td>
+             </tr>
+           </tbody>
+         </table>
+
+         <button type="button" class="btn btn-primary pull-right" ng-click="Ctrl.add()">Add</button>
+         
+       </div>
+   </div>
+</div> 

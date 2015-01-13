@@ -1,0 +1,11 @@
+<div class="container-fluid main">
+   <form name="categoryForm" class="form-horizontal" role="form" novalidate>
+      <div class="form-group" ng-class="{'has-error': categoryForm.category.$invalid}">
+         <label for="category" class="control-label col-sm-3">Category</label>
+         <div class="col-sm-9">
+            <input type="text" id="category" name="category" class="form-control" ng-model="category.name" placeholder="Category" autofocus="" required>
+         </div>
+      </div>
+      <button type="button" class="btn btn-primary pull-right" ng-click="Ctrl.save(category)" ng-disabled="categoryForm.$invalid">Save</button>
+   </form>
+</div> 

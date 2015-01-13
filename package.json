@@ -6,17 +6,19 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
+    "express": "3.*",
     "jade": "*",
     "mysql": "2.0.0-alpha3",
     "mongodb": "*",
     "sqlite3": "*",
-    "coffee-script": "*",
+    "coffee-script": "1.6.*",
     "passport": "*",
     "passport-local": "*",
     "passport-google": "*",
     "passport-yahoo": "*",
     "passport-twitter": "*",
-    "passport-facebook": "*"
+    "passport-facebook": "*",
+    "crypto-js": "^3.1.2-5",
+    "prompt": "^0.2.14"
   }
 }

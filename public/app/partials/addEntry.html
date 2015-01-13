@@ -1,0 +1,50 @@
+<div class="container-fluid main">
+   <form name="entryForm" class="form-horizontal" role="form" novalidate>
+      <div class="form-group" ng-class="{'has-error': entryForm.category.$invalid}">
+         <label for="category" class="control-label col-sm-3">Category</label>
+         <div class="col-sm-9">
+            <select id="category" name="category" class="form-control" ng-model="entry.category" required>
+               <option ng-repeat="category in categories">{{category.name}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group" ng-class="{'has-error': entryForm.name.$invalid}">
+         <label for="name" class="control-label col-sm-3">Name</label>
+         <div class="col-sm-9">
+            <input type="text" id="name" name="name" class="form-control" ng-model="entry.name" placeholder="Name" required>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="url" class="control-label col-sm-3">URL</label>
+         <div class="col-sm-9">
+            <input type="text" id="name" class="form-control" ng-model="entry.url" placeholder="URL">
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="user" class="control-label col-sm-3">User</label>
+         <div class="col-sm-9">
+            <input type="text" id="user" class="form-control" ng-model="entry.user" placeholder="User">
+         </div>
+      </div>
+      <div class="form-group" ng-class="{'has-error': entryForm.password.$invalid}">
+         <label for="password" class="control-label col-sm-3">Password</label>
+         <div class="col-sm-9">
+            <input type="password" id="password" name="password" class="form-control" ng-model="entry.password" placeholder="Password" required>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="email" class="control-label col-sm-3">Email</label>
+         <div class="input-group col-sm-9">
+            <div class="input-group-addon">@</div>
+            <input type="text" id="email" class="form-control" ng-model="entry.email" placeholder="Email">
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="notes" class="control-label col-sm-3">Notes</label>
+         <div class="col-sm-9">
+            <input type="text" id="notes" class="form-control" ng-model="entry.notes" placeholder="Notes">
+         </div>
+      </div>
+      <button type="button" class="btn btn-primary pull-right" ng-click="Ctrl.save(entry)" ng-disabled="entryForm.$invalid">Save</button>
+   </form>
+</div> 
