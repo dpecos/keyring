@@ -154,6 +154,9 @@ angular.module('KeyRing.controllers', [])
       entry.user = cryptoSRV.encrypt(clearUser, $rootScope.masterPassword);
       entry.password = cryptoSRV.encrypt(clearPassword, $rootScope.masterPassword);
 
+      delete entry.clearUser;
+      delete entry.clearPassword;
+
       if (entry._id) {
          $q.when(entriesDAO.update(entry)).then(function(response) { 
             entry.clearUser = clearUser;
