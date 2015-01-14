@@ -123,12 +123,31 @@ body {
   font-weight: bold;
 }
 
-.entries td {
-  vertical-align: middle !important;
+.entries {
+   table-layout: fixed;
 }
 
+.entries th {
+   text-align: center;
+}
+.entries td, .entries th {
+   vertical-align: middle !important;
+   min-width: 85px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.entries th#name { width: 15% }
+.entries th#url { width: 20% }
+.entries th#user { width: 15% }
+.entries th#password { width: 15% }
+.entries th#email { width: 20% }
+.entries th#notes { width: 10% }
+.entries th#actions { width: 80px }
+
 .entries .glyphicon {
-   margin-left: 15px;
+   margin-left: 10px;
 }
 
 .glyphicon.disabled {
