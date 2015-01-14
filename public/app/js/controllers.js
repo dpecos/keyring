@@ -148,17 +148,21 @@ angular.module('KeyRing.controllers', [])
    $scope.entry = entry;
 
    this.save = function() {
-      entry.clearUser = entry.user;
-      entry.clearPassword = entry.password;
+      var clearUser = entry.user;
+      var clearPassword = entry.password;
 
-      entry.user = cryptoSRV.encrypt(entry.clearUser,  $rootScope.masterPassword);
-      entry.password = cryptoSRV.encrypt(entry.clearPassword,  $rootScope.masterPassword);
+      entry.user = cryptoSRV.encrypt(clearUser, $rootScope.masterPassword);
+      entry.password = cryptoSRV.encrypt(clearPassword, $rootScope.masterPassword);
 
       if (entry._id) {
          $q.when(entriesDAO.update(entry)).then(function(response) { 
+            entry.clearUser = clearUser;
+            entry.clearPassword = clearPassword;
             $modalInstance.close(response);
          }, function(err) {
             $log.error(err);
+            entry.clearUser = clearUser;
+            entry.clearPassword = clearPassword;
             alert("Error updating entry: " + err.statusText);
          });
       } else {
@@ -167,6 +171,8 @@ angular.module('KeyRing.controllers', [])
             $rootScope.reloadData();
          }, function(err) {
             $log.error(err);
+            entry.clearUser = clearUser;
+            entry.clearPassword = clearPassword;
             alert("Error creating entry: " + err.statusText);
          });
       }
