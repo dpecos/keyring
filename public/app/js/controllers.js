@@ -180,9 +180,13 @@ angular.module('KeyRing.controllers', [])
          });
       }
    };
+
+   this.cancel = function() {
+      $modalInstance.close();
+   };
 }])
 
-.controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modal', '$log', 'categoriesDAO', function($rootScope, $scope, $q, $modal, $log, categoriesDAO) {
+.controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modalInstance', '$modal', '$log', 'categoriesDAO', function($rootScope, $scope, $q, $modalInstance, $modal, $log, categoriesDAO) {
    this.remove = function(category) {
       $q.when(categoriesDAO.remove(category)).then(function(error) {
          //TODO: handle error
@@ -205,15 +209,21 @@ angular.module('KeyRing.controllers', [])
       });
 
       modalInstance.result.then(function(newCategory) {
-         $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
-            $rootScope.reloadData();
-         }, function(err) {
-            $log.error(err);
-            alert("Error creating category: " + err.statusText);
-         });
+         if (newCategory) {
+            $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
+               $rootScope.reloadData();
+            }, function(err) {
+               $log.error(err);
+               alert("Error creating category: " + err.statusText);
+            });
+         }
       }, function() {
          // dialog closed without saving
       });
+   };
+
+   this.cancel = function() {
+      $modalInstance.close();
    };
 }])
 
@@ -222,5 +232,9 @@ angular.module('KeyRing.controllers', [])
 
    this.save = function() {
       $modalInstance.close($scope.category);
+   };
+
+   this.cancel = function() {
+      $modalInstance.close();
    };
 }]);

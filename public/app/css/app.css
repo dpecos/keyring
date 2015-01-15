@@ -175,3 +175,6 @@ body {
 .main .page-header {
   margin-top: 0;
 }
+
+.btn-default {
+   margin-right: 10px;
