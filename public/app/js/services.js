@@ -3,7 +3,7 @@
 /* Services */
 
 angular.module('KeyRing.services', []).
-  value('version', '1.0').
+  value('version', version).
 
   service('cryptoSRV', function() {
      var currentPassword = null;

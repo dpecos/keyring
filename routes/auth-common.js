@@ -8,7 +8,12 @@ module.exports = function(app) {
    }
 
    app.get('/', app.checkAuth, function(req, res) {
-      res.redirect(app.server.getUrl('/app/index.html'));
+      res.redirect(app.server.getUrl('/app/'));
+   });
+
+   app.get('/app/', function(req, res) {
+      var pjson = require('../package.json');
+      res.render('index', {version: pjson.version});
    });
 
    app.get('/login', function(req, res) {
