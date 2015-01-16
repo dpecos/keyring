@@ -178,3 +178,19 @@ body {
 
 .btn-default {
    margin-right: 10px;
+ }
+
+ .modal.info .modal-header {
+   color: white;
+   background-color: #428bca; 
+ }
+
+ .modal.success .modal-header {
+   color: white;
+   background-color: #5cb85c; 
+ }
+
+ .modal.warning .modal-header {
+   color: white;
+   background-color: #d9534f; 
+ }
