@@ -116,7 +116,7 @@ body {
 }
 
 .sidebar .version {
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   color: grey;
   font-size: 9px;
