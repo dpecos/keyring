@@ -1,3 +1,6 @@
+var pjson = require('../package.json');
+var gravatar = require("gravatar");
+
 module.exports = function(app) {
 
    app.checkAuth = function(req, res, next) {
@@ -12,8 +15,16 @@ module.exports = function(app) {
    });
 
    app.get('/app/', function(req, res) {
-      var pjson = require('../package.json');
-      res.render('index', {version: pjson.version});
+      if (req.isAuthenticated()) {
+         var email = null;
+         if (req.user.emails && req.user.emails.length > 0) {
+            email = req.user.emails[0].value;
+         }
+         var avatar = gravatar.url(email, {s: '50', r: 'x', d: 'mm'});
+         res.render('index', {version: pjson.version, avatar: avatar});
+      } else {
+         res.redirect(app.server.getUrl('/login'));
+      }
    });
 
    app.get('/login', function(req, res) {

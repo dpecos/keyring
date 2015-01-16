@@ -41,7 +41,7 @@ html.no-js(lang='en', ng-app='KeyRing')
             li(ng-controller='MasterPasswordCtrl as PasswordCtrl')
               span.glyphicon.glyphicon-lock(ng-click='PasswordCtrl.show()', ng-class='{disabled: masterPassword}', aria-hidden='true')
             li
-              span.glyphicon.glyphicon-off(aria-hidden='true', onclick="document.location.href='../logout'")
+              img(src=avatar, onclick="document.location.href='../logout'")
     //if lt IE 7
       p.browsehappy
         | You are using an 
