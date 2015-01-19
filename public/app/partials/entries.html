@@ -6,7 +6,9 @@
        </form>
        <h4>Categories</h4>
        <ul class="nav nav-sidebar">
-          <li ng-repeat="category in categories | orderBy: 'name'"><a href="" ng-click="Ctrl.scrollTo('category_' + category.name.toLowerCase())">{{category.name}}</a></li>
+          <li ng-repeat="category in categories | orderBy: 'name'">
+             <a href="" ng-click="Ctrl.scrollTo('category_' + category.name.toLowerCase())">{{category.name}} ({{Ctrl.entriesInCategory(category)}})</a>
+          </li>
        </ul>
       <div class="version">Keyring version: <span app-version></span></div>
      </div>
