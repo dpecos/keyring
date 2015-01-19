@@ -105,7 +105,7 @@ angular.module('KeyRing.controllers', [])
 
 }])
 
-.controller('EntriesCtrl', ['$rootScope', '$scope', '$q', '$modal', '$log', 'entriesDAO', function($rootScope, $scope, $q, $modal, $log, entriesDAO) {
+.controller('EntriesCtrl', ['$rootScope', '$scope', '$q', '$modal', '$anchorScroll', '$location', '$log', 'entriesDAO', function($rootScope, $scope, $q, $modal, $anchorScroll, $location, $log, entriesDAO) {
   this.entriesByCategory = function(category) {
     return $rootScope.entries.filter(function(entry) {
       return entry.category === category.name;
@@ -134,6 +134,12 @@ angular.module('KeyRing.controllers', [])
       }
     });
   }
+
+  this.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+  }
+
 }])
 
 .controller('EditEntryCtrl', ['$rootScope', '$scope', '$q', '$modalInstance', '$log', 'entriesDAO', 'cryptoSRV', 'entry', function($rootScope, $scope, $q, $modalInstance, $log, entriesDAO, cryptoSRV, entry) {
