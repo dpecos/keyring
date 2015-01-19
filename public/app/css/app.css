@@ -194,3 +194,8 @@ body {
    color: white;
    background-color: #d9534f; 
  }
+.anchor h2 {
+   padding-top: 60px;
+   margin-top: -60px;
+   text-decoration: none;
+}
