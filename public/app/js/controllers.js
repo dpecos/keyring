@@ -86,21 +86,22 @@ angular.module('KeyRing.controllers', [])
 }])
 
 .controller('MasterPasswordCtrl', ['$rootScope', '$scope', function($rootScope, $scope) {
-   this.show = function() {
 
-     bootbox.prompt({
-       title: "Master password",
-       className: 'info',
-       inputType: 'password',
-       callback: function(password) {
-         if (password) {
-           $rootScope.masterPassword = password;
-         } else {
-           $rootScope.masterPassword = null;
+   this.show = function() {
+      bootbox.prompt({
+         title: "Master password",
+         className: 'info',
+         inputType: 'password',
+         callback: function(password) {
+            if (password) {
+               $rootScope.masterPassword = password;
+            } else {
+               $rootScope.masterPassword = null;
+            }
+            $rootScope.$apply();
+            $rootScope.checkLock();
          }
-        $rootScope.checkLock();
-       }
-     });
+      });
    };
 
 }])
