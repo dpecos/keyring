@@ -21,7 +21,9 @@ module.exports = function(app) {
       function(accessToken, refreshToken, profile, done) {
          profile.uid = profile.username + "@facebook";
          profile.uname = profile.displayName;
-         return done(null, profile);
+         app.db.checkUserExists(profile, function() {
+            done(null, profile);
+         });
       }
    ));
 

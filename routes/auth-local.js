@@ -24,7 +24,9 @@ module.exports = function(app) {
                   uid: 'devel',
                   uname: 'Development Mode'
                };
-               return done(null, user);
+               app.db.checkUserExists(user, function() {
+                  done(null, user);
+               });
             } else {
                done(null, null);
             }
