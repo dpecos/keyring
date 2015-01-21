@@ -106,7 +106,7 @@ angular.module('KeyRing.controllers', [])
 
 }])
 
-.controller('EntriesCtrl', ['$rootScope', '$scope', '$q', '$modal', '$anchorScroll', '$location', '$log', 'entriesDAO', function($rootScope, $scope, $q, $modal, $anchorScroll, $location, $log, entriesDAO) {
+.controller('EntriesCtrl', ['$rootScope', '$q', '$modal', '$anchorScroll', '$location', '$log', 'entriesDAO', function($rootScope, $q, $modal, $anchorScroll, $location, $log, entriesDAO) {
   this.entriesByCategory = function(category) {
     return $rootScope.entries.filter(function(entry) {
       return entry.category === category.name;

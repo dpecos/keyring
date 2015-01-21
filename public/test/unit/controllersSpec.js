@@ -3,8 +3,9 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function(){
-  beforeEach(module('KeyRing.controllers'));
   beforeEach(module('KeyRing.factories'));
+  beforeEach(module('KeyRing.controllers'));
+  beforeEach(module('ui.bootstrap'));
 
   describe('EntriesCtrl', function() {
      var scope = null;
@@ -18,7 +19,7 @@ describe('controllers', function(){
            {name: "Entry 2", url: "http://", user: "User 1", email: "user1@email.com", password: "password1", notes: "Notes for entry 1", category: "bar"},
         ];
         
-        entriesCtrl = $controller('EntriesCtrl', { $scope: scope });
+        entriesCtrl = $controller('EntriesCtrl', { $rootScope: scope });
      }));
 
      it('should be defined', function() {
