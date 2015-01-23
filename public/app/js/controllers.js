@@ -85,23 +85,57 @@ angular.module('KeyRing.controllers', [])
 
 }])
 
-.controller('MasterPasswordCtrl', ['$rootScope', '$scope', function($rootScope, $scope) {
+.controller('MasterPasswordCtrl', ['$rootScope', '$scope', 'timeoutSRV', function($rootScope, $scope, timeoutSRV) {
 
-   this.show = function() {
-      bootbox.prompt({
-         title: "Master password",
-         className: 'info',
-         inputType: 'password',
-         callback: function(password) {
-            if (password) {
-               $rootScope.masterPassword = password;
-            } else {
-               $rootScope.masterPassword = null;
+   function msToTime(duration) {
+      var milliseconds = parseInt((duration%1000)/100)
+         , seconds = parseInt((duration/1000)%60)
+         , minutes = parseInt((duration/(1000*60))%60)
+         , hours = parseInt((duration/(1000*60*60))%24);
+
+      hours = (hours < 10) ? "0" + hours : hours;
+      minutes = (minutes < 10) ? "0" + minutes : minutes;
+      seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+      //return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+      return minutes + ":" + seconds;
+   }
+
+   var paintClock = function(timeout, ellapsedTime) {
+      $rootScope.timeout = msToTime(timeout - ellapsedTime);
+   };
+   
+   var clearMasterPassword = function() {
+      delete $rootScope.timeout;
+      $rootScope.masterPassword = null;
+   }
+
+   this.lockUnlockCredentials = function() {
+
+      if ($rootScope.masterPassword) {
+         $rootScope.masterPassword = null;
+         timeoutSRV.stopTimer();
+         $rootScope.checkLock();
+
+      } else {
+         bootbox.prompt({
+            title: "Master password",
+            className: 'info',
+            inputType: 'password',
+            callback: function(password) {
+               if (password) {
+                  $rootScope.masterPassword = password;
+                  var timeout = timeoutSRV.startTimer(paintClock, clearMasterPassword);
+                  $rootScope.timeout = msToTime(timeout);
+               } else {
+                  $rootScope.masterPassword = null;
+                  timeoutSRV.stopTimer();
+               }
+               $rootScope.$apply();
+               $rootScope.checkLock();
             }
-            $rootScope.$apply();
-            $rootScope.checkLock();
-         }
-      });
+         });
+      }
    };
 
 }])

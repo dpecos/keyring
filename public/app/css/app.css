@@ -199,3 +199,9 @@ body {
    margin-top: -60px;
    text-decoration: none;
 }
+
+.clock {
+  margin: 12px;
+  color: white;
+  font-size: 18px;
+}
