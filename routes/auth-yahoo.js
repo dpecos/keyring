@@ -20,7 +20,9 @@ module.exports = function(app) {
       function(identifier, profile, done) {
          profile.uid = profile.emails[0].value;
          profile.identifier = identifier;
-         return done(null, profile);
+         app.db.checkUserExists(profile, function() {
+            done(null, profile);
+         });
       }
    ));
 

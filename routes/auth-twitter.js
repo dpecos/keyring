@@ -22,7 +22,9 @@ module.exports = function(app) {
       function(token, tokenSecret, profile, done) {
          profile.uid = profile.id + "@twitter";
          profile.uname = profile.name;
-         return done(null, profile);
+         app.db.checkUserExists(profile, function() {
+            done(null, profile);
+         });
       }
    ));
 

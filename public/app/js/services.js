@@ -3,7 +3,7 @@
 /* Services */
 
 angular.module('KeyRing.services', []).
-  value('version', '1.0').
+  value('version', version).
 
   service('cryptoSRV', function() {
      var currentPassword = null;
@@ -28,5 +28,59 @@ angular.module('KeyRing.services', []).
         encrypt: encrypt,
         decrypt: decrypt
      };
-  
-  });
+  }). 
+
+  service('timeoutSRV', ['$interval', function($interval) {
+     var timeout = 60000;
+     var startTime = null;
+     var intervalId = null;
+     var callback = null;
+     var callbackEnd = null;
+
+     var timerTick = function () {
+        var currentTime = new Date();
+
+        var ellapsedTime = currentTime - startTime;
+        ellapsedTime = parseInt(ellapsedTime / 10) * 10;
+
+        if (ellapsedTime >= timeout) {
+           stopTimer();
+        } else if (callback) {
+           callback(timeout, ellapsedTime);
+        }
+     }
+
+     var startTimer = function (handler, handlerEnd) {
+       startTime = new Date();
+       callback = handler;
+       callbackEnd = handlerEnd;
+
+       if (intervalId === null) {
+          intervalId = $interval(timerTick, 1000);
+       }
+       
+       return timeout;
+     };
+
+     var stopTimer = function () {
+        startTime = null;
+
+        if (intervalId !== null) {
+           $interval.cancel(intervalId);
+           intervalId = null;
+           callbackEnd();
+        }
+     };
+
+     var resetTimer = function() {
+        if (startTime != null) {
+           startTime = new Date();
+        }
+     };
+
+     return {
+        startTimer: startTimer,
+        stopTimer: stopTimer,
+        resetTimer: resetTimer
+     }
+  }]);
