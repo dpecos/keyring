@@ -3,6 +3,7 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function(){
+  beforeEach(module('KeyRing.services'));
   beforeEach(module('KeyRing.factories'));
   beforeEach(module('KeyRing.controllers'));
   beforeEach(module('ui.bootstrap'));

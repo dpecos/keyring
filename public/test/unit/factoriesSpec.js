@@ -3,6 +3,7 @@
 /* jasmine specs for controllers go here */
 
 describe('factories', function(){
+  beforeEach(module('KeyRing.services'));
   beforeEach(module('KeyRing.factories'));
 
   describe('categoriesDAO', function() {
