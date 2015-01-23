@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dpecos/keyring.svg)](https://travis-ci.org/dpecos/keyring)
+
 Setup
 =====
 
