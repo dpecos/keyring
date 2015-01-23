@@ -41,7 +41,7 @@ html.no-js(lang='en', ng-app='KeyRing')
             li
               span.glyphicon.glyphicon-plus-sign(ng-show='masterPassword', ng-click='Ctrl.addNewEntry()')
             li(class='clock')
-              span(ng-show='masterPassword')
+              span(ng-show='masterPassword', ng-click='resetTimer()')
                 {{timeout}}
             li(ng-controller='MasterPasswordCtrl as PasswordCtrl')
               span.glyphicon.glyphicon-lock(ng-click='PasswordCtrl.lockUnlockCredentials()', ng-class='{disabled: masterPassword}', aria-hidden='true')

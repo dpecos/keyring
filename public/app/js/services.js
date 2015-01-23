@@ -72,8 +72,15 @@ angular.module('KeyRing.services', []).
         }
      };
 
+     var resetTimer = function() {
+        if (startTime != null) {
+           startTime = new Date();
+        }
+     };
+
      return {
         startTimer: startTimer,
-        stopTimer: stopTimer
+        stopTimer: stopTimer,
+        resetTimer: resetTimer
      }
   }]);

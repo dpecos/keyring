@@ -87,6 +87,10 @@ angular.module('KeyRing.controllers', [])
 
 .controller('MasterPasswordCtrl', ['$rootScope', '$scope', 'timeoutSRV', function($rootScope, $scope, timeoutSRV) {
 
+   $rootScope.resetTimer = function() {
+      timeoutSRV.resetTimer();
+   };
+
    function msToTime(duration) {
       var milliseconds = parseInt((duration%1000)/100)
          , seconds = parseInt((duration/1000)%60)
