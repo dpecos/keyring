@@ -2,6 +2,14 @@
 
 /* Controllers */
 
+function showAlert(title, msg) {
+   bootbox.alert({
+      title: title,
+      className: 'warning',
+      message: msg
+   });
+}
+
 function showEntryDialog(entry, $modal) {
    var isNewEntry = entry == null;
    entry = entry || {};
@@ -167,7 +175,7 @@ angular.module('KeyRing.controllers', [])
             $rootScope.entries.splice(index, 1);
           }, function(err) {
             $log.error(err);
-            alert("Error deleting entry: " + err.statusText);
+            showAlert("Error", "Error deleting entry: " + err.statusText);
           });
         }
       }
@@ -203,7 +211,7 @@ angular.module('KeyRing.controllers', [])
             $log.error(err);
             entry.clearUser = clearUser;
             entry.clearPassword = clearPassword;
-            alert("Error updating entry: " + err.statusText);
+            showAlert("Error", "Error updating entry: " + err.statusText);
          });
       } else {
          $q.when(entriesDAO.create(entry)).then(function(response) { 
@@ -213,7 +221,7 @@ angular.module('KeyRing.controllers', [])
             $log.error(err);
             entry.clearUser = clearUser;
             entry.clearPassword = clearPassword;
-            alert("Error creating entry: " + err.statusText);
+            showAlert("Error", "Error creating entry: " + err.statusText);
          });
       }
    };
@@ -224,53 +232,64 @@ angular.module('KeyRing.controllers', [])
 }])
 
 .controller('CategoriesCtrl', ['$rootScope', '$scope', '$q', '$modalInstance', '$modal', '$log', 'categoriesDAO', function($rootScope, $scope, $q, $modalInstance, $modal, $log, categoriesDAO) {
-  this.remove = function(category) {
-    bootbox.confirm({
-      title: "Confirm deletion",
-      message: "Are you sure you want to remove this category?",
-      className: 'warning',
-      callback: function(result) {
-        if (result) {
-          $q.when(categoriesDAO.remove(category)).then(function(error) {
-            //TODO: handle error
-            $rootScope.categories = $rootScope.categories.filter(function(cat) {
-              return cat.name != category.name;
-            });
-          });
-        }
-      }
-    });
-  };
+   this.remove = function(category) {
+      bootbox.confirm({
+         title: "Confirm deletion",
+         message: "Are you sure you want to remove this category?",
+         className: 'warning',
+         callback: function(result) {
+            if (result) {
+               $q.when(categoriesDAO.remove(category)).then(function(error) {
+                  //TODO: handle error
+                  $rootScope.categories = $rootScope.categories.filter(function(cat) {
+                     return cat.name != category.name;
+                  });
+               });
+            }
+         }
+      });
+   };
 
-  this.add = function() {
-    var modalInstance = $modal.open({
-      templateUrl: 'partials/editCategory.html',
-      controller: 'EditCategoryCtrl as Ctrl',
-      //scope: $scope,
-      resolve: {
-        category: function() {
-          return { name: null };
-        }
-      }
-    });
+   this.add = function() {
+      var modalInstance = $modal.open({
+         templateUrl: 'partials/editCategory.html',
+         controller: 'EditCategoryCtrl as Ctrl',
+         //scope: $scope,
+         resolve: {
+            category: function() {
+               return { name: null };
+            }
+         }
+      });
 
-    modalInstance.result.then(function(newCategory) {
-      if (newCategory) {
-        $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
-          $rootScope.reloadData();
-        }, function(err) {
-          $log.error(err);
-          alert("Error creating category: " + err.statusText);
-        });
-      }
-    }, function() {
-      // dialog closed without saving
-    });
-  };
+      modalInstance.result.then(function(newCategory) {
+         if (newCategory) {
 
-  this.cancel = function() {
-    $modalInstance.close();
-  };
+            var exists = $rootScope.categories.filter(function(cat) {
+               return cat.name === newCategory.name;
+            }).length !== 0;
+
+            if (exists) {
+               showAlert("Error", "Category '" + newCategory.name + "' already exists");
+
+            } else {
+
+               $q.when(categoriesDAO.create(newCategory)).then(function(category) { 
+                  $rootScope.reloadData();
+               }, function(err) {
+                  $log.error(err);
+                  showAlert("Error", "Error creating category: " + err.statusText);
+               });
+            }
+         }
+      }, function() {
+         // dialog closed without saving
+      });
+   };
+
+   this.cancel = function() {
+      $modalInstance.close();
+   };
 }])
 
 .controller('EditCategoryCtrl', ['$scope', '$modalInstance', 'category', function($scope, $modalInstance, category) {
