@@ -18,7 +18,7 @@
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "node app",
+    "start": "nodemon app",
     "static-start": "http-server -a localhost -p 8000",
     "pretest": "npm install",
     "test-watch": "karma start public/test/karma.conf.js",
