@@ -7,14 +7,14 @@
        <h4>Categories</h4>
        <ul class="nav nav-sidebar">
           <li ng-repeat="category in categories | orderBy: 'name'">
-             <a href="" ng-click="Ctrl.scrollTo('category_' + category.name.toLowerCase())">{{category.name}} ({{Ctrl.entriesInCategory(category)}})</a>
+             <a href="" ng-click="Ctrl.scrollTo('category_' + category.name.toLowerCase())">{{category.name}} ({{$root.filtered_entries[category.name].length}})</a>
           </li>
        </ul>
       <div class="version">Keyring version: <span app-version></span></div>
      </div>
      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-       <div class="category" ng-repeat="category in categories | orderBy: 'name'">
+       <div class="category" ng-repeat="category in categories | orderBy: 'name'" ng-show="$root.filtered_entries[category.name].length">
           <span class="anchor" id="category_{{category.name.toLowerCase()}}">
             <h2 class="sub-header">{{category.name}}</h2>
           </span>
@@ -32,7 +32,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="entry in Ctrl.entriesByCategory(category) | filter: search | orderBy: 'name'">
+                <tr ng-repeat="entry in $root.filtered_entries[category.name] = (Ctrl.entriesByCategory(category) | filter: search | orderBy: 'name')">
                    <td>{{entry.name}}</td>
                    <td>{{entry.url}}</td>
                    <td>{{entry.clearUser}}</td>

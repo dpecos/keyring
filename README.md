@@ -1,5 +1,31 @@
 [![Build Status](https://travis-ci.org/dpecos/keyring.svg)](https://travis-ci.org/dpecos/keyring)
 
+Preparing a new release
+=======================
+
+1. Close the feature branch
+
+    1.1 Manually merge the branch into master:
+   
+        git merge <branch> --no-ff
+
+    1.2 Create a pull request in github and merge it into master
+
+2. Create a tag with the version to release in master
+
+3. Deploy it to production
+    
+    pm2 deploy production
+
+4. Create a new branch and switch into it
+
+    git checkout -b release-1.x.0
+
+5. Bump package.json version:
+
+    npm version minor -m "Project version change to %s"
+
+
 Setup
 =====
 

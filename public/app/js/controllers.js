@@ -151,10 +151,6 @@ angular.module('KeyRing.controllers', [])
     });
   };
 
-  this.entriesInCategory = function(category) {
-     return this.entriesByCategory(category).length;
-  };
-
   this.editEntry = function(entry) {
     showEntryDialog(entry, $modal);
   };
