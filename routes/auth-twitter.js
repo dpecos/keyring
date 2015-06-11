@@ -21,7 +21,8 @@ module.exports = function(app) {
       },
       function(token, tokenSecret, profile, done) {
          profile.uid = profile.id + "@twitter";
-         profile.uname = profile.name;
+         profile.uname = profile.displayName;
+         profile.avatar = profile.photos[0].value;
          app.db.checkUserExists(profile, function() {
             done(null, profile);
          });

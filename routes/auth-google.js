@@ -21,7 +21,8 @@ module.exports = function(app) {
          userInfoURL: "https://www.googleapis.com/plus/v1/people/me"
       },
       function(iss, sub, profile, accessToken, refreshToken, done) {
-         profile.uid = profile._json.emails[0].value;
+         profile.email = profile._json.emails[0].value;
+         profile.uid = profile.email;
          profile.uname = profile._json.displayName;
          app.db.checkUserExists(profile, function() {
             done(null, profile);

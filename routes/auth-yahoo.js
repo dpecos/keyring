@@ -18,8 +18,10 @@ module.exports = function(app) {
          realm: url()
       },
       function(identifier, profile, done) {
-         profile.uid = profile.emails[0].value;
+         profile.email = profile.emails[0].value;
+         profile.uid = profile.email;
          profile.identifier = identifier;
+         profile.uname = profile.displayName;
          app.db.checkUserExists(profile, function() {
             done(null, profile);
          });

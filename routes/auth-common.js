@@ -17,10 +17,10 @@ module.exports = function(app) {
    app.get('/app/', function(req, res) {
       if (req.isAuthenticated()) {
          var email = null;
-         if (req.user.emails && req.user.emails.length > 0) {
-            email = req.user.emails[0].value;
+         if (req.user.email) {
+            email = req.user.email;
          }
-         var avatar = gravatar.url(email, {s: '50', r: 'x', d: 'mm'});
+         var avatar = req.user.avatar || gravatar.url(email, {s: '50', r: 'x', d: 'mm'});
          res.render('index', {version: pjson.version, avatar: avatar});
       } else {
          res.redirect(app.server.getUrl('/login'));
