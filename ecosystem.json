@@ -20,8 +20,8 @@
       host : "danielpecos.com",
       ref  : "origin/master",
       repo : "git@github.com:dpecos/keyring.git",
-      path : "/srv/web/danielpecos.com/apps/keyring",
-      "post-deploy" : "rm config.coffee && ln -s /srv/web/danielpecos.com/apps/keyring_config.coffee config.coffee && npm install && bower install && pm2 startOrRestart ecosystem.json --env production"
+      path : "/srv/web/apps.danielpecos.com/keyring",
+      "post-deploy" : "rm config.coffee && ln -s /srv/web/apps.danielpecos.com/keyring_config.coffee config.coffee && npm install && bower install && pm2 startOrRestart ecosystem.json --env production"
     }
   }
 }
